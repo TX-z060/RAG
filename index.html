@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>课程资料问答助手</title>
+</head>
+
+<body>
+    <h1>课程资料问答助手</h1>
+    <h2>上传资料</h2>
+    <p>请选择 UTF-8 编码的 TXT 文件，最大 1 MiB。上传成功会替换当前资料。</p>
+
+    <input
+        id="material-file"
+        type="file"
+        accept=".txt,text/plain"
+    >
+
+    <button id="upload-button" type="button">上传资料</button>
+    <p id="upload-status"></p>
+
+    <hr>
+    <label for="question">请输入问题：</label>
+    <br>
+
+    <textarea
+        id="question"
+        rows="5"
+        cols="60"
+        maxlength="1000"
+        placeholder="例如：这份资料主要介绍了什么？"
+    ></textarea>
+
+    <br>
+    <button id="ask-button" type="button">提问</button>
+
+    <h2>回答</h2>
+    <p id="status"></p>
+    <pre id="answer" style="white-space: pre-wrap;"></pre>
+    <h2>本次检索到的资料片段</h2>
+    <div id="sources"></div>
+    <hr>
+
+    <h2>问答历史</h2>
+    <label for="history-page">页码：</label>
+    <input
+        id="history-page"
+        type="number"
+        min="1"
+        step="1"
+        value="1"
+    >
+    <button id="refresh-history" type="button">刷新历史</button>
+    <p id="history-status"></p>
+    <ul id="history-list"></ul>
+    <h3>历史详情</h3>
+    <p id="history-detail-status"></p>
+    <p id="history-detail-question"></p>
+    <pre id="history-detail-answer" style="white-space: pre-wrap;"></pre>
+
+    <h4>当时保存的资料片段</h4>
+    <div id="history-detail-sources"></div>
+    <script>
+        const questionInput = document.getElementById("question");
+        const askButton = document.getElementById("ask-button");
+        const statusBox = document.getElementById("status");
+        const answerBox = document.getElementById("answer");
+        const sourcesBox = document.getElementById("sources");
+        const fileInput = document.getElementById("material-file");
+        const uploadButton = document.getElementById("upload-button");
+        const uploadStatus = document.getElementById("upload-status");
+        const historyButton = document.getElementById("refresh-history");
+        const historyStatus = document.getElementById("history-status");
+        const historyList = document.getElementById("history-list");
+        const detailStatus = document.getElementById("history-detail-status");
+        const detailQuestion = document.getElementById("history-detail-question");
+        const detailAnswer = document.getElementById("history-detail-answer");
+        const detailSources = document.getElementById("history-detail-sources");
+        const historyPage = document.getElementById("history-page");
+        askButton.addEventListener("click", async function () {
+            const question = questionInput.value.trim();
+    
+            if (!question) {
+                statusBox.textContent = "请先输入问题。";
+                return;
+            }
+    
+            askButton.disabled = true;
+            statusBox.textContent = "正在生成回答，请稍候……";
+            answerBox.textContent = "";
+            sourcesBox.replaceChildren();
+    
+            try {
+                const response = await fetch("/ask", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        question: question
+                    })
+                });
+    
+                const data = await response.json();
+    
+                if (!response.ok) {
+                    const message = typeof data.detail === "string"
+                        ? data.detail
+                        : "请求失败，状态码：" + response.status;
+    
+                    throw new Error(message);
+                }
+    
+                answerBox.textContent = data.answer;
+
+                const chunks = data.retrieved_chunks || [];
+
+                if (chunks.length === 0) {
+                    sourcesBox.textContent = "本次没有检索到相关片段。";
+                }
+
+                for (const chunk of chunks) {
+                    const details = document.createElement("details");
+                    const summary = document.createElement("summary");
+                    const content = document.createElement("pre");
+
+                    summary.textContent = "片段 " + chunk.id;
+                    content.textContent = chunk.text;
+                    content.style.whiteSpace = "pre-wrap";
+
+                    details.append(summary, content);
+                    sourcesBox.append(details);
+                }
+
+                statusBox.textContent = "回答完成。";
+            } catch (error) {
+                statusBox.textContent = "提问失败：" + error.message;
+            } finally {
+                askButton.disabled = false;
+            }
+        });
+        uploadButton.addEventListener("click", async function () {
+            const file = fileInput.files[0];
+
+            if (!file) {
+                uploadStatus.textContent = "请先选择文件。";
+                return;
+            }
+
+            if (file.size > 1024 * 1024) {
+                uploadStatus.textContent = "文件大小不能超过1 MiB。";
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append("file", file);
+
+            uploadButton.disabled = true;
+            askButton.disabled = true;
+            uploadStatus.textContent = "正在上传……";
+
+            try {
+                const response = await fetch("/materials/upload", {
+                    method: "POST",
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    const message = typeof data.detail === "string"
+                        ? data.detail
+                        : "上传失败，状态码：" + response.status;
+
+                    throw new Error(message);
+                }
+
+                uploadStatus.textContent =
+                    data.message + "，共 " + data.characters + " 个字符。";
+
+                answerBox.textContent = "";
+                sourcesBox.replaceChildren();
+                statusBox.textContent = "资料已更新，可以开始提问。";
+            } catch (error) {
+                uploadStatus.textContent = "上传失败：" + error.message;
+            } finally {
+                uploadButton.disabled = false;
+                askButton.disabled = false;
+            }
+        });
+        async function loadHistory() {
+            const page = Number(historyPage.value);
+
+            if (!Number.isInteger(page) || page < 1) {
+                historyStatus.textContent = "请输入大于等于1的整数页码。";
+                return;
+            }
+
+            const limit = 10;
+            const offset = (page - 1) * limit;
+            historyButton.disabled = true;
+            historyStatus.textContent = "正在加载历史……";
+            historyList.replaceChildren();
+
+            try {
+                const response = await fetch(
+                    "/history?limit=" + limit + "&offset=" + offset
+                );
+                const data = await response.json();
+
+                if (!response.ok) {
+                    const message = typeof data.detail === "string"
+                        ? data.detail
+                        : "加载失败，状态码：" + response.status;
+
+                    throw new Error(message);
+                }
+
+                for (const item of data.items) {
+                    const li = document.createElement("li");
+                    li.textContent = "编号 " + item.id + "：" + item.question;
+
+                    const button = document.createElement("button");
+                    button.type = "button";
+                    button.textContent = "查看详情";
+
+                    button.addEventListener("click", function () {
+                        loadHistoryDetail(item.id);
+                    });
+
+                    li.append(" ", button);
+                    historyList.append(li);
+                }
+
+                const totalPages = Math.max(1, Math.ceil(data.total / limit));
+
+                historyStatus.textContent =
+                    "共 " + data.total + " 条记录，共 " + totalPages
+                    + " 页。当前第 " + page + " 页，显示 "
+                    + data.items.length + " 条。";
+
+                
+            } catch (error) {
+                historyStatus.textContent = "历史加载失败：" + error.message;
+            } finally {
+                historyButton.disabled = false;
+            }
+        }
+
+        historyButton.addEventListener("click", loadHistory);
+
+        async function loadHistoryDetail(historyId) {
+            detailStatus.textContent = "正在加载历史详情……";
+            detailQuestion.textContent = "";
+            detailAnswer.textContent = "";
+            detailSources.replaceChildren();
+
+            historyButton.disabled = true;
+
+            for (const button of historyList.querySelectorAll("button")) {
+                button.disabled = true;
+            }
+
+            try {
+                const response = await fetch("/history/" + historyId);
+                const data = await response.json();
+
+                if (!response.ok) {
+                    const message = typeof data.detail === "string"
+                        ? data.detail
+                        : "加载失败，状态码：" + response.status;
+
+                    throw new Error(message);
+                }
+
+                detailQuestion.textContent = "问题：" + data.question;
+                detailAnswer.textContent = data.answer;
+
+                for (const chunk of data.retrieved_chunks || []) {
+                    const details = document.createElement("details");
+                    const summary = document.createElement("summary");
+                    const content = document.createElement("pre");
+
+                    summary.textContent = "片段 " + chunk.id;
+                    content.textContent = chunk.text;
+                    content.style.whiteSpace = "pre-wrap";
+
+                    details.append(summary, content);
+                    detailSources.append(details);
+                }
+
+                detailStatus.textContent = "正在查看历史记录：" + data.id;
+            } catch (error) {
+                detailStatus.textContent = "详情加载失败：" + error.message;
+            } finally {
+                historyButton.disabled = false;
+
+                for (const button of historyList.querySelectorAll("button")) {
+                    button.disabled = false;
+                }
+            }
+        }
+    </script>
+</body>
+</html>
