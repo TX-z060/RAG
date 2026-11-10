@@ -1,0 +1,17 @@
+[Unit]
+Description=Course Materials QA Assistant
+Wants=network-online.target
+After=network-online.target mysqld.service
+Requires=mysqld.service
+
+[Service]
+Type=simple
+User=zz
+WorkingDirectory=/home/zz/projects/course-assistant
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/home/zz/projects/course-assistant/.venv/bin/python -m uvicorn main:app --host 127.0.0.1 --port 8000
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
