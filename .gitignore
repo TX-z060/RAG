@@ -4,3 +4,4 @@ __pycache__/
 .mysql/
 .pytest_cache/
 .vscode/
+/course-assistant.tar
