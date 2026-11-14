@@ -253,7 +253,10 @@ def get_materials_chunks():
     return {"count":len(result), "chunks":result}
 
 @app.get("/retrieve")
-def retrieve_material(question: str):
+def retrieve_material(
+    question: str,
+    include_neighbors: bool = True,
+):
     question = question.strip()
     chunks  = get_materials_chunks()["chunks"]
 
@@ -280,9 +283,14 @@ def retrieve_material(question: str):
 
     for index in indices:
         if scores[index] > 0:
-            for neighbor_index in (index - 1, index, index + 1):
-                if 0 <= neighbor_index < len(chunks):
-                    selected_indices.add(int(neighbor_index))
+            # 直接检索到的片段始终保留。
+            selected_indices.add(int(index))
+
+            # 开关打开时，再补充前后相邻片段。
+            if include_neighbors:
+                for neighbor_index in (index - 1, index + 1):
+                    if 0 <= neighbor_index < len(chunks):
+                        selected_indices.add(int(neighbor_index))
 
     results = []
 

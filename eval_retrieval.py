@@ -1,4 +1,5 @@
 #这段代码的任务是： 用固定的问题测试检索函数，把“应该找到的片段和“实际找到的片段”进行比较，再统计结果”
+import argparse
 import hashlib
 import json
 from pathlib import Path
@@ -14,6 +15,15 @@ def format_rate(total,count):
 
 def main():
     #根据脚本位置找到固定数据集
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--no-neighbors",
+        action="store_true",
+        help="评测时关闭相邻片段补充",
+    )
+    args = parser.parse_args()
+
+    include_neighbors = not args.no_neighbors
     dataset_path = (
         Path(__file__).parent
         /"evals"
@@ -43,7 +53,8 @@ def main():
     ):
         for case in data["cases"]:
             results = retrieve_material(
-                case["question"]
+                case["question"],
+                include_neighbors=include_neighbors,
             )["results"]
 
             expected_ids = set(
@@ -111,7 +122,7 @@ def main():
             "analyzer": "char",
             "ngram_range": [1, 3],
             "top_k": 3,
-            "neighbor_window": 1,
+            "neighbor_window": 1 if include_neighbors else 0,
             "score_filter": "> 0",
         },
         "dataset_sha256": hashlib.sha256(
@@ -136,9 +147,12 @@ def main():
         "cases": case_results,
     }
 
-    report_path = dataset_path.with_name(
-        "tfidf_baseline.json"
+    report_name = (
+        "tfidf_with_neighbors.json"
+        if include_neighbors
+        else "tfidf_no_neighbors.json"
     )
+    report_path = dataset_path.with_name(report_name)
     report_path.write_text(
         json.dumps(
             report,
