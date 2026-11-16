@@ -1,0 +1,213 @@
+{
+  "algorithm": "dense",
+  "settings": {
+    "model": "intfloat/multilingual-e5-small",
+    "normalize_embeddings": true,
+    "query_prefix": "query: ",
+    "passage_prefix": "passage: ",
+    "top_k": 3,
+    "neighbor_window": 0,
+    "score_filter": "> 0.88"
+  },
+  "dataset_sha256": "5b6247106d1acaa384a25df87c2172b080587bc353e00bff972c30cea73acf2e",
+  "positive_count": 8,
+  "negative_count": 4,
+  "metrics": {
+    "answerable_mrr_at_3": 1.0,
+    "mean_evidence_recall": 1.0,
+    "mean_context_precision": 0.8958333333333334,
+    "unanswerable_empty_rate": 1.0
+  },
+  "cases": [
+    {
+      "id": "v1",
+      "question": "两个Python项目需要不同版本的依赖，怎样避免互相影响？",
+      "expected_chunk_ids": [
+        1
+      ],
+      "reciprocal_rank_at_3": 1.0,
+      "retrieved_chunk_ids": [
+        1
+      ],
+      "ranked_results": [
+        {
+          "id": 1,
+          "score": 0.9110349416732788
+        }
+      ]
+    },
+    {
+      "id": "v2",
+      "question": "我希望文件只有所有者能读、写和执行，该设置什么权限？",
+      "expected_chunk_ids": [
+        4
+      ],
+      "reciprocal_rank_at_3": 1.0,
+      "retrieved_chunk_ids": [
+        4
+      ],
+      "ranked_results": [
+        {
+          "id": 4,
+          "score": 0.9155846238136292
+        }
+      ]
+    },
+    {
+      "id": "v3",
+      "question": "读取资源和提交数据通常分别使用哪种HTTP方法？",
+      "expected_chunk_ids": [
+        2
+      ],
+      "reciprocal_rank_at_3": 1.0,
+      "retrieved_chunk_ids": [
+        2
+      ],
+      "ranked_results": [
+        {
+          "id": 2,
+          "score": 0.9158815741539001
+        }
+      ]
+    },
+    {
+      "id": "v4",
+      "question": "给数据库建索引除了查询上的好处，还会付出什么代价？",
+      "expected_chunk_ids": [
+        9
+      ],
+      "reciprocal_rank_at_3": 1.0,
+      "retrieved_chunk_ids": [
+        9
+      ],
+      "ranked_results": [
+        {
+          "id": 9,
+          "score": 0.9106405973434448
+        }
+      ]
+    },
+    {
+      "id": "v5",
+      "question": "资料问答系统为什么要在回答中引用原文？",
+      "expected_chunk_ids": [
+        6
+      ],
+      "reciprocal_rank_at_3": 1.0,
+      "retrieved_chunk_ids": [
+        6
+      ],
+      "ranked_results": [
+        {
+          "id": 6,
+          "score": 0.9114311337471008
+        }
+      ]
+    },
+    {
+      "id": "v6",
+      "question": "怎样给某次Git提交起一个固定名称，方便以后找回那个版本？",
+      "expected_chunk_ids": [
+        12
+      ],
+      "reciprocal_rank_at_3": 1.0,
+      "retrieved_chunk_ids": [
+        5,
+        12
+      ],
+      "ranked_results": [
+        {
+          "id": 12,
+          "score": 0.9077935814857483
+        },
+        {
+          "id": 5,
+          "score": 0.8974599838256836
+        }
+      ]
+    },
+    {
+      "id": "v7",
+      "question": "FastAPI可以用什么工具校验请求参数，校验失败对应哪个HTTP状态码？",
+      "expected_chunk_ids": [
+        7,
+        11
+      ],
+      "reciprocal_rank_at_3": 1.0,
+      "retrieved_chunk_ids": [
+        7,
+        8,
+        11
+      ],
+      "ranked_results": [
+        {
+          "id": 7,
+          "score": 0.9251874685287476
+        },
+        {
+          "id": 11,
+          "score": 0.9152547121047974
+        },
+        {
+          "id": 8,
+          "score": 0.8827911019325256
+        }
+      ]
+    },
+    {
+      "id": "v8",
+      "question": "哪个工具负责让Linux后端服务开机启动，哪个工具负责接收浏览器请求并转发给后端？",
+      "expected_chunk_ids": [
+        8,
+        10
+      ],
+      "reciprocal_rank_at_3": 1.0,
+      "retrieved_chunk_ids": [
+        8,
+        10
+      ],
+      "ranked_results": [
+        {
+          "id": 8,
+          "score": 0.918470025062561
+        },
+        {
+          "id": 10,
+          "score": 0.9029149413108826
+        }
+      ]
+    },
+    {
+      "id": "v9",
+      "question": "MySQL主从复制应该怎样配置？",
+      "expected_chunk_ids": [],
+      "reciprocal_rank_at_3": null,
+      "retrieved_chunk_ids": [],
+      "ranked_results": []
+    },
+    {
+      "id": "v10",
+      "question": "怎样编写Kubernetes配置来部署三个服务副本？",
+      "expected_chunk_ids": [],
+      "reciprocal_rank_at_3": null,
+      "retrieved_chunk_ids": [],
+      "ranked_results": []
+    },
+    {
+      "id": "v11",
+      "question": "Java垃圾回收器如何选择和调优？",
+      "expected_chunk_ids": [],
+      "reciprocal_rank_at_3": null,
+      "retrieved_chunk_ids": [],
+      "ranked_results": []
+    },
+    {
+      "id": "v12",
+      "question": "怎样用CSS让网页中的卡片水平居中？",
+      "expected_chunk_ids": [],
+      "reciprocal_rank_at_3": null,
+      "retrieved_chunk_ids": [],
+      "ranked_results": []
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "chunks": [
+    {
+      "id": 1,
+      "text": "Python虚拟环境用于隔离不同项目的依赖。每个项目可以拥有独立的Python包，避免依赖版本互相影响。"
+    },
+    {
+      "id": 2,
+      "text": "HTTP请求包含请求方法、路径、请求头和可选的请求体。GET常用于读取资源，POST常用于提交数据。"
+    },
+    {
+      "id": 3,
+      "text": "MySQL事务将一组数据库操作作为整体。COMMIT提交事务，ROLLBACK撤销尚未提交的事务修改。"
+    },
+    {
+      "id": 4,
+      "text": "Linux文件权限分为读取、写入和执行。chmod 700表示只有文件所有者拥有读取、写入和执行权限。"
+    },
+    {
+      "id": 5,
+      "text": "Git暂存区用于选择下一次提交的内容。git add把文件当前的修改放入暂存区，git commit保存暂存区中的版本。"
+    },
+    {
+      "id": 6,
+      "text": "RAG先检索与问题相关的资料，再把资料和问题一起交给大模型生成回答。引用原文可以帮助用户核对回答依据。"
+    },
+    {
+      "id": 7,
+      "text": "FastAPI用于构建HTTP接口，可以借助Pydantic解析和校验请求参数，并向客户端返回JSON数据。"
+    },
+    {
+      "id": 8,
+      "text": "Nginx反向代理接收浏览器请求，将请求转发给内部的FastAPI等后端服务，再把后端响应传回浏览器。"
+    },
+    {
+      "id": 9,
+      "text": "数据库索引可以加速特定条件下的查询，也需要额外存储空间，并增加数据写入时的维护成本。"
+    },
+    {
+      "id": 10,
+      "text": "systemd负责管理Linux服务。systemctl start启动服务，systemctl enable设置开机自动启动，journalctl查看服务日志。"
+    },
+    {
+      "id": 11,
+      "text": "HTTP状态码200表示请求成功，404表示资源未找到，422表示请求数据没有通过接口的参数校验。"
+    },
+    {
+      "id": 12,
+      "text": "git log用于查看提交历史。Git标签可以给某次提交设置固定名称，便于找到对应的代码版本。"
+    }
+  ],
+  "cases": [
+    {
+      "id": "v1",
+      "question": "两个Python项目需要不同版本的依赖，怎样避免互相影响？",
+      "expected_chunk_ids": [1]
+    },
+    {
+      "id": "v2",
+      "question": "我希望文件只有所有者能读、写和执行，该设置什么权限？",
+      "expected_chunk_ids": [4]
+    },
+    {
+      "id": "v3",
+      "question": "读取资源和提交数据通常分别使用哪种HTTP方法？",
+      "expected_chunk_ids": [2]
+    },
+    {
+      "id": "v4",
+      "question": "给数据库建索引除了查询上的好处，还会付出什么代价？",
+      "expected_chunk_ids": [9]
+    },
+    {
+      "id": "v5",
+      "question": "资料问答系统为什么要在回答中引用原文？",
+      "expected_chunk_ids": [6]
+    },
+    {
+      "id": "v6",
+      "question": "怎样给某次Git提交起一个固定名称，方便以后找回那个版本？",
+      "expected_chunk_ids": [12]
+    },
+    {
+      "id": "v7",
+      "question": "FastAPI可以用什么工具校验请求参数，校验失败对应哪个HTTP状态码？",
+      "expected_chunk_ids": [7, 11]
+    },
+    {
+      "id": "v8",
+      "question": "哪个工具负责让Linux后端服务开机启动，哪个工具负责接收浏览器请求并转发给后端？",
+      "expected_chunk_ids": [8, 10]
+    },
+    {
+      "id": "v9",
+      "question": "MySQL主从复制应该怎样配置？",
+      "expected_chunk_ids": []
+    },
+    {
+      "id": "v10",
+      "question": "怎样编写Kubernetes配置来部署三个服务副本？",
+      "expected_chunk_ids": []
+    },
+    {
+      "id": "v11",
+      "question": "Java垃圾回收器如何选择和调优？",
+      "expected_chunk_ids": []
+    },
+    {
+      "id": "v12",
+      "question": "怎样用CSS让网页中的卡片水平居中？",
+      "expected_chunk_ids": []
+    }
+  ]
+}

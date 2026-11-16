@@ -1,0 +1,186 @@
+{
+  "algorithm": "dense",
+  "settings": {
+    "model": "intfloat/multilingual-e5-small",
+    "normalize_embeddings": true,
+    "query_prefix": "query: ",
+    "passage_prefix": "passage: ",
+    "top_k": 3,
+    "neighbor_window": 0,
+    "score_filter": "> 0.85"
+  },
+  "dataset_sha256": "4003b70ab4c5603b7fc612013d62690fdaae16486601381adf035be77ec4eafb",
+  "positive_count": 6,
+  "negative_count": 2,
+  "metrics": {
+    "answerable_mrr_at_3": 1.0,
+    "mean_evidence_recall": 1.0,
+    "mean_context_precision": 0.47222222222222227,
+    "unanswerable_empty_rate": 1.0
+  },
+  "cases": [
+    {
+      "id": "q1",
+      "question": "Git暂存区有什么作用？",
+      "expected_chunk_ids": [
+        5
+      ],
+      "reciprocal_rank_at_3": 1.0,
+      "retrieved_chunk_ids": [
+        1,
+        5,
+        12
+      ],
+      "ranked_results": [
+        {
+          "id": 5,
+          "score": 0.9258073568344116
+        },
+        {
+          "id": 12,
+          "score": 0.8748785257339478
+        },
+        {
+          "id": 1,
+          "score": 0.8507630825042725
+        }
+      ]
+    },
+    {
+      "id": "q2",
+      "question": "怎样把本地文件的修改选进下一次提交？",
+      "expected_chunk_ids": [
+        5
+      ],
+      "reciprocal_rank_at_3": 1.0,
+      "retrieved_chunk_ids": [
+        3,
+        5,
+        12
+      ],
+      "ranked_results": [
+        {
+          "id": 5,
+          "score": 0.8990386724472046
+        },
+        {
+          "id": 12,
+          "score": 0.8666189908981323
+        },
+        {
+          "id": 3,
+          "score": 0.8551808595657349
+        }
+      ]
+    },
+    {
+      "id": "q3",
+      "question": "网站入口收到请求后，怎样交给内部的Python接口处理？",
+      "expected_chunk_ids": [
+        8
+      ],
+      "reciprocal_rank_at_3": 1.0,
+      "retrieved_chunk_ids": [
+        6,
+        8,
+        11
+      ],
+      "ranked_results": [
+        {
+          "id": 8,
+          "score": 0.9004132747650146
+        },
+        {
+          "id": 6,
+          "score": 0.8691787719726562
+        },
+        {
+          "id": 11,
+          "score": 0.8665851354598999
+        }
+      ]
+    },
+    {
+      "id": "q4",
+      "question": "如何设置后端服务在Linux开机时自动启动？",
+      "expected_chunk_ids": [
+        10
+      ],
+      "reciprocal_rank_at_3": 1.0,
+      "retrieved_chunk_ids": [
+        8,
+        10
+      ],
+      "ranked_results": [
+        {
+          "id": 10,
+          "score": 0.9019817113876343
+        },
+        {
+          "id": 8,
+          "score": 0.8597943782806396
+        }
+      ]
+    },
+    {
+      "id": "q5",
+      "question": "怎样撤销还没有提交的数据库事务修改？",
+      "expected_chunk_ids": [
+        3
+      ],
+      "reciprocal_rank_at_3": 1.0,
+      "retrieved_chunk_ids": [
+        3
+      ],
+      "ranked_results": [
+        {
+          "id": 3,
+          "score": 0.9095617532730103
+        }
+      ]
+    },
+    {
+      "id": "q6",
+      "question": "请求参数没有通过校验，会返回什么状态码？",
+      "expected_chunk_ids": [
+        11
+      ],
+      "reciprocal_rank_at_3": 1.0,
+      "retrieved_chunk_ids": [
+        7,
+        8,
+        11
+      ],
+      "ranked_results": [
+        {
+          "id": 11,
+          "score": 0.9261353611946106
+        },
+        {
+          "id": 7,
+          "score": 0.8785208463668823
+        },
+        {
+          "id": 8,
+          "score": 0.8746021389961243
+        }
+      ]
+    },
+    {
+      "id": "q7",
+      "question": "法国的首都是什么？",
+      "expected_chunk_ids": [],
+      "reciprocal_rank_at_3": null,
+      "retrieved_chunk_ids": [],
+      "ranked_results": []
+    },
+    {
+      "id": "q8",
+      "question": "明天北京会下雨吗？",
+      "expected_chunk_ids": [],
+      "reciprocal_rank_at_3": null,
+      "retrieved_chunk_ids": [],
+      "ranked_results": []
+    }
+  ]
+}
