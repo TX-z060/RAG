@@ -23,7 +23,72 @@ model = ChatDeepSeek(
 
 app = FastAPI()
 MAX_FILE_BYTES = 1024 * 1024
+def retrieve_for_question(question):
+    """根据配置选择问答使用的检索方法。"""
+    question = question.strip()
 
+    retriever_type = os.getenv(
+        "RAG_RETRIEVER",
+        "tfidf",
+    ).strip().lower()
+
+    if retriever_type == "tfidf":
+        return retrieve_material(question)
+
+    if retriever_type != "dense":
+        raise HTTPException(
+            status_code=500,
+            detail="检索方式配置错误",
+        )
+
+    chunks = get_materials_chunks()["chunks"]
+
+    if not question or not chunks:
+        return {
+            "question": question,
+            "results": [],
+        }
+
+    try:
+        min_score = float(
+            os.getenv("RAG_DENSE_MIN_SCORE", "0.88")
+        )
+    except ValueError as error:
+        raise HTTPException(
+            status_code=500,
+            detail="向量检索门槛必须是数字",
+        ) from error
+
+    if not -1.0 <= min_score <= 1.0:
+        raise HTTPException(
+            status_code=500,
+            detail="向量检索门槛必须在 -1 到 1 之间",
+        )
+
+    from dense_retrieval import (
+        build_dense_index,
+        retrieve_dense,
+    )
+
+    dense_model, passage_vectors = build_dense_index(chunks)
+
+    results = retrieve_dense(
+        question,
+        chunks,
+        dense_model,
+        passage_vectors,
+    )
+
+    results = [
+        item
+        for item in results
+        if item["score"] > min_score
+    ]
+
+    return {
+        "question": question,
+        "results": results,
+    }
 class AskRequest(BaseModel):
     question: str = Field(max_length=1000)
 
@@ -44,7 +109,7 @@ def ask_post(data:AskRequest):
     if not question:
         raise HTTPException(status_code=400, detail="问题不能为空")
     
-    matches = retrieve_material(question)["results"]
+    matches = retrieve_for_question(question)["results"]
 
     if not matches:
         return {
