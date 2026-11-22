@@ -232,7 +232,7 @@ E5 稠密检索依赖（可选；运行完整测试套件需安装）：
 
 ```powershell
 
-.\.venv\Scripts\python.exe -m pytest test_api.py test_history.py test_dense_api.py test_dense_upload.py test_rrf.py -q
+.\.venv\Scripts\python.exe -m pytest test_api.py test_history.py test_dense_api.py test_dense_upload.py test_rrf.py test_stream.py -q
 
 ```
 
@@ -243,6 +243,12 @@ E5 稠密检索依赖（可选；运行完整测试套件需安装）：
 检索回归测试使用固定资料，执行真实的检索逻辑。
 
 
+
+## 流式问答
+
+前端默认使用 /ask/stream 接口，通过 SSE 逐块推送模型输出，回答在生成过程中实时显示，检索到的引用片段会先于回答出现。服务端在流结束后统一保存一次历史，查询参数与错误提示与非流式接口一致。
+
+若浏览器或中间代理不支持流式响应，前端会自动回退到原有的 /ask 接口。原有 /ask 接口保持可用，便于兼容旧客户端。
 
 ## 检索方式与门禁配置
 

@@ -144,6 +144,54 @@ async function request(url, options = {}) {
   }
   return data;
 }
+async function requestStream(question, onEvent, signal) {
+  let response;
+  try {
+    response = await fetch("/ask/stream", {
+      method: "POST",
+      cache: "no-store",
+      signal,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ question })
+    });
+  } catch (error) {
+    if (error.name === "AbortError") throw error;
+    throw new Error("暂时无法连接服务，请检查网络后重试。");
+  }
+  if (!response.ok || !response.body) {
+    let message = "请求失败（" + response.status + "），请稍后重试。";
+    try {
+      const data = await response.json();
+      if (typeof data.detail === "string") message = data.detail;
+    } catch { /* 非 JSON 错误体时保留默认提示 */ }
+    throw new Error(message);
+  }
+
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder("utf-8");
+  let buffer = "";
+  while (true) {
+    const { value, done } = await reader.read();
+    if (done) break;
+    buffer += decoder.decode(value, { stream: true });
+    let split;
+    while ((split = buffer.indexOf("\n\n")) !== -1) {
+      const frame = buffer.slice(0, split);
+      buffer = buffer.slice(split + 2);
+      let name = "message", payload = "";
+      for (const line of frame.split("\n")) {
+        if (line.startsWith("event:")) name = line.slice(6).trim();
+        else if (line.startsWith("data:")) payload += line.slice(5).trim();
+      }
+      if (!payload) continue;
+      let data;
+      try { data = JSON.parse(payload); }
+      catch { continue; }
+      onEvent(name, data);
+    }
+  }
+}
+
 function updateControls() {
   const busy = Boolean(state.busy);
   $("material-file").disabled = busy;
@@ -340,21 +388,52 @@ async function askQuestion() {
     $("answer-time").textContent = "已等待 " + seconds + " 秒";
     $("loading-label").textContent = seconds < 12 ? "正在结合原文组织回答" : "仍在等待模型响应，请稍候";
   }, 1000);
+  let chunks = [];
+  let historyId = null;
+  let usedStream = false;
   try {
-    const data = await request("/ask", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ question }) });
-    const chunks = Array.isArray(data.retrieved_chunks) ? data.retrieved_chunks : [];
-    state.answer = String(data.answer ?? "");
+    try {
+      await requestStream(question, (name, data) => {
+        if (name === "meta") {
+          chunks = Array.isArray(data.chunks) ? data.chunks : [];
+          if (chunks.length) {
+            renderSources($("sources"), chunks, "");
+            $("sources-placeholder").hidden = true;
+            $("source-count").textContent = chunks.length + " 个片段";
+          }
+          $("answer-loading").hidden = true;
+        } else if (name === "delta") {
+          state.answer += String(data.text ?? "");
+          renderAnswer($("answer"), state.answer, $("sources"), chunks);
+          $("copy-answer").hidden = !state.answer;
+        } else if (name === "done") {
+          historyId = data.history_id ?? null;
+        } else if (name === "error") {
+          throw new Error(data.message || "生成回答时发生错误。");
+        }
+      });
+      if (!state.answer) throw new Error("本次没有收到回答内容，请稍后重试。");
+      usedStream = true;
+    } catch (streamError) {
+      if (streamError.name === "AbortError") throw streamError;
+      // 流式不可用（旧版本服务或网络中间层不支持）时回退到普通接口。
+      state.answer = ""; renderAnswer($("answer"), "", $("sources"), []);
+      const data = await request("/ask", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ question }) });
+      chunks = Array.isArray(data.retrieved_chunks) ? data.retrieved_chunks : [];
+      state.answer = String(data.answer ?? "");
+      historyId = data.history_id ?? null;
+      renderAnswer($("answer"), state.answer, $("sources"), chunks);
+    }
     renderSources($("sources"), chunks, state.answer);
-    renderAnswer($("answer"), state.answer, $("sources"), chunks);
     $("copy-answer").hidden = !state.answer;
     $("sources-placeholder").hidden = chunks.length > 0;
     $("sources-placeholder").textContent = "本次没有检索到相关资料，可以换一种问法或补充资料。";
     $("source-count").textContent = chunks.length + " 个片段";
-    $("answer-state").textContent = data.history_id ? "已保存至历史" : "回答完成";
+    $("answer-state").textContent = historyId ? "已保存至历史" : "回答完成";
     $("answer-state").dataset.state = "ready";
-    $("answer-time").textContent = ((performance.now() - started) / 1000).toFixed(1) + " 秒";
-    textStatus("answer-status", ""); toast(data.history_id ? "回答已生成，问答记录已保存" : "回答已生成");
-    if (data.history_id) void loadHistory({ page: 1, selectedId: data.history_id });
+    $("answer-time").textContent = ((performance.now() - started) / 1000).toFixed(1) + " 秒" + (usedStream ? " · 流式" : "");
+    textStatus("answer-status", ""); toast(historyId ? "回答已生成，问答记录已保存" : "回答已生成");
+    if (historyId) void loadHistory({ page: 1, selectedId: historyId });
   } catch (error) {
     $("answer-state").textContent = "暂未完成"; $("answer-state").dataset.state = "error";
     textStatus("answer-status", error.message, "error");
