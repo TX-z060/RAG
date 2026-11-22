@@ -184,6 +184,24 @@ cd 'D:\\电子实训\\git练习\\课程资料问答助手'
 
 首次搭建时，还需要安装 Python 依赖并完成 MySQL 初始化。
 
+\## 安装依赖
+
+基础依赖（接口、TF-IDF 检索、测试）：
+
+```powershell
+
+.\\.venv\\Scripts\\python.exe -m pip install -r requirements.txt
+
+```
+
+E5 稠密检索依赖（可选；运行完整测试套件需安装）：
+
+```powershell
+
+.\\.venv\\Scripts\\python.exe -m pip install -r requirements-dense.txt
+
+```
+
 
 
 \## 使用流程
