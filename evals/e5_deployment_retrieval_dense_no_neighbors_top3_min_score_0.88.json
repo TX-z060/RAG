@@ -1,0 +1,183 @@
+{
+  "algorithm": "dense",
+  "settings": {
+    "model": "intfloat/multilingual-e5-small",
+    "normalize_embeddings": true,
+    "query_prefix": "query: ",
+    "passage_prefix": "passage: ",
+    "top_k": 3,
+    "neighbor_window": 0,
+    "score_filter": "> 0.88"
+  },
+  "dataset_sha256": "d36f0028b473941a6589a542c6a528cae8a0560cb47ad77a496ab5fa58c98a1d",
+  "positive_count": 8,
+  "negative_count": 2,
+  "metrics": {
+    "answerable_mrr_at_3": 0.25,
+    "mean_evidence_recall": 0.1875,
+    "mean_context_precision": 0.14583333333333331,
+    "unanswerable_empty_rate": 1.0
+  },
+  "cases": [
+    {
+      "id": "d1",
+      "question": "这个版本使用哪个向量模型，模型文件缓存在哪个目录？",
+      "expected_chunk_ids": [
+        1
+      ],
+      "reciprocal_rank_at_3": 0.0,
+      "retrieved_chunk_ids": [
+        3,
+        6
+      ],
+      "ranked_results": [
+        {
+          "id": 6,
+          "score": 0.8912695050239563
+        },
+        {
+          "id": 3,
+          "score": 0.8869507312774658
+        }
+      ]
+    },
+    {
+      "id": "d2",
+      "question": "旧服务上的应用配置和数据库连接配置分别复制哪个文件？",
+      "expected_chunk_ids": [
+        3
+      ],
+      "reciprocal_rank_at_3": 0.0,
+      "retrieved_chunk_ids": [
+        9
+      ],
+      "ranked_results": [
+        {
+          "id": 9,
+          "score": 0.88860684633255
+        }
+      ]
+    },
+    {
+      "id": "d3",
+      "question": "新版本建好虚拟环境后，用哪个依赖清单安装，用什么命令检查依赖冲突？",
+      "expected_chunk_ids": [
+        2
+      ],
+      "reciprocal_rank_at_3": 0.0,
+      "retrieved_chunk_ids": [
+        3,
+        7
+      ],
+      "ranked_results": [
+        {
+          "id": 7,
+          "score": 0.8844740986824036
+        },
+        {
+          "id": 3,
+          "score": 0.8807930946350098
+        }
+      ]
+    },
+    {
+      "id": "d4",
+      "question": "怎样查看这个服务最近 30 条日志？",
+      "expected_chunk_ids": [
+        7
+      ],
+      "reciprocal_rank_at_3": 0.0,
+      "retrieved_chunk_ids": [],
+      "ranked_results": []
+    },
+    {
+      "id": "d5",
+      "question": "浏览器先访问代理的哪个端口，后端为什么还要连接 MySQL，数据库监听端口是多少？",
+      "expected_chunk_ids": [
+        1,
+        2
+      ],
+      "reciprocal_rank_at_3": 0.0,
+      "retrieved_chunk_ids": [],
+      "ranked_results": []
+    },
+    {
+      "id": "d6",
+      "question": "这次升级后的正式向量检索门槛是多少？哪个 systemd 覆盖文件控制它？",
+      "expected_chunk_ids": [
+        3,
+        4
+      ],
+      "reciprocal_rank_at_3": 0.0,
+      "retrieved_chunk_ids": [],
+      "ranked_results": []
+    },
+    {
+      "id": "d7",
+      "question": "降级时怎样停用覆盖配置并应用变更？回到旧程序后，更新过的资料会自动同步吗？",
+      "expected_chunk_ids": [
+        8,
+        9
+      ],
+      "reciprocal_rank_at_3": 1.0,
+      "retrieved_chunk_ids": [
+        7,
+        8,
+        9
+      ],
+      "ranked_results": [
+        {
+          "id": 9,
+          "score": 0.9094099998474121
+        },
+        {
+          "id": 8,
+          "score": 0.8892476558685303
+        },
+        {
+          "id": 7,
+          "score": 0.8865969777107239
+        }
+      ]
+    },
+    {
+      "id": "d8",
+      "question": "给新目录的 Python 符号链接应用标签用什么命令？之前的规则已存在还要重复添加吗？",
+      "expected_chunk_ids": [
+        5,
+        6
+      ],
+      "reciprocal_rank_at_3": 1.0,
+      "retrieved_chunk_ids": [
+        4,
+        5
+      ],
+      "ranked_results": [
+        {
+          "id": 5,
+          "score": 0.9244709014892578
+        },
+        {
+          "id": 4,
+          "score": 0.893714189529419
+        }
+      ]
+    },
+    {
+      "id": "d9",
+      "question": "这个部署用什么域名和证书申请命令来开启 HTTPS？",
+      "expected_chunk_ids": [],
+      "reciprocal_rank_at_3": null,
+      "retrieved_chunk_ids": [],
+      "ranked_results": []
+    },
+    {
+      "id": "d10",
+      "question": "生产环境十个用户同时提问时，P95 响应时间实测是多少？",
+      "expected_chunk_ids": [],
+      "reciprocal_rank_at_3": null,
+      "retrieved_chunk_ids": [],
+      "ranked_results": []
+    }
+  ]
+}

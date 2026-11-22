@@ -1,0 +1,484 @@
+{
+  "algorithm": "rrf",
+  "dataset_sha256": "d9b14429a07081b2187fe929a9bd09834beb8a29c634ecc419800a4ae62da767",
+  "settings": {
+    "rank_constant": 60,
+    "input_top_k": 3,
+    "output_top_k": 3,
+    "tie_break": "e5_rank_ascending_then_chunk_id_ascending"
+  },
+  "positive_count": 8,
+  "negative_count": 2,
+  "metrics": {
+    "mean_evidence_recall": 1,
+    "mean_context_precision": 0.49999999999999994,
+    "answerable_mrr_at_3": 0.9375,
+    "unanswerable_empty_rate": 0
+  },
+  "baselines": {
+    "e5": {
+      "answerable_mrr_at_3": 1,
+      "mean_evidence_recall": 0.875,
+      "mean_context_precision": 0.41666666666666663,
+      "unanswerable_empty_rate": 0
+    },
+    "tfidf": {
+      "answerable_mrr_at_3": 1,
+      "mean_evidence_recall": 0.9375,
+      "mean_context_precision": 0.4583333333333333,
+      "unanswerable_empty_rate": 0
+    }
+  },
+  "cases": [
+    {
+      "id": "h1",
+      "question": "海豚腿练习时，脚踝和膝盖应保持什么状态？",
+      "expected_chunk_ids": [
+        4
+      ],
+      "e5_ids": [
+        4,
+        9,
+        14
+      ],
+      "tfidf_ids": [
+        4,
+        9,
+        8
+      ],
+      "retrieved_chunk_ids": [
+        4,
+        9,
+        14
+      ],
+      "ranked_results": [
+        {
+          "id": 4,
+          "e5_rank": 1,
+          "tfidf_rank": 1,
+          "score": 0.03278688524590164
+        },
+        {
+          "id": 9,
+          "e5_rank": 2,
+          "tfidf_rank": 2,
+          "score": 0.03225806451612903
+        },
+        {
+          "id": 14,
+          "e5_rank": 3,
+          "tfidf_rank": null,
+          "score": 0.015873015873015872
+        }
+      ],
+      "evidence_recall": 1,
+      "context_precision": 0.3333333333333333,
+      "reciprocal_rank_at_3": 1
+    },
+    {
+      "id": "h2",
+      "question": "手掌和前臂刚抓到水后，应该把水往哪边推？",
+      "expected_chunk_ids": [
+        5
+      ],
+      "e5_ids": [
+        5,
+        10,
+        14
+      ],
+      "tfidf_ids": [
+        5,
+        13,
+        6
+      ],
+      "retrieved_chunk_ids": [
+        5,
+        10,
+        13
+      ],
+      "ranked_results": [
+        {
+          "id": 5,
+          "e5_rank": 1,
+          "tfidf_rank": 1,
+          "score": 0.03278688524590164
+        },
+        {
+          "id": 10,
+          "e5_rank": 2,
+          "tfidf_rank": null,
+          "score": 0.016129032258064516
+        },
+        {
+          "id": 13,
+          "e5_rank": null,
+          "tfidf_rank": 2,
+          "score": 0.016129032258064516
+        }
+      ],
+      "evidence_recall": 1,
+      "context_precision": 0.3333333333333333,
+      "reciprocal_rank_at_3": 1
+    },
+    {
+      "id": "h3",
+      "question": "嘴巴吸到气以后，头应该怎么处理？",
+      "expected_chunk_ids": [
+        7
+      ],
+      "e5_ids": [
+        7,
+        10,
+        15
+      ],
+      "tfidf_ids": [
+        7,
+        13,
+        10
+      ],
+      "retrieved_chunk_ids": [
+        7,
+        10,
+        13
+      ],
+      "ranked_results": [
+        {
+          "id": 7,
+          "e5_rank": 1,
+          "tfidf_rank": 1,
+          "score": 0.03278688524590164
+        },
+        {
+          "id": 10,
+          "e5_rank": 2,
+          "tfidf_rank": 3,
+          "score": 0.03200204813108039
+        },
+        {
+          "id": 13,
+          "e5_rank": null,
+          "tfidf_rank": 2,
+          "score": 0.016129032258064516
+        }
+      ],
+      "evidence_recall": 1,
+      "context_precision": 0.3333333333333333,
+      "reciprocal_rank_at_3": 1
+    },
+    {
+      "id": "h4",
+      "question": "跟教练反馈动作卡住时，怎样描述问题才便于他指导？",
+      "expected_chunk_ids": [
+        15
+      ],
+      "e5_ids": [
+        15,
+        10,
+        7
+      ],
+      "tfidf_ids": [
+        15,
+        9,
+        10
+      ],
+      "retrieved_chunk_ids": [
+        15,
+        10,
+        9
+      ],
+      "ranked_results": [
+        {
+          "id": 15,
+          "e5_rank": 1,
+          "tfidf_rank": 1,
+          "score": 0.03278688524590164
+        },
+        {
+          "id": 10,
+          "e5_rank": 2,
+          "tfidf_rank": 3,
+          "score": 0.03200204813108039
+        },
+        {
+          "id": 9,
+          "e5_rank": null,
+          "tfidf_rank": 2,
+          "score": 0.016129032258064516
+        }
+      ],
+      "evidence_recall": 1,
+      "context_precision": 0.3333333333333333,
+      "reciprocal_rank_at_3": 1
+    },
+    {
+      "id": "h5",
+      "question": "下水前应该了解场馆哪些安全信息？练蝶泳前为什么还要留意泳道是否拥挤？",
+      "expected_chunk_ids": [
+        1,
+        13
+      ],
+      "e5_ids": [
+        13,
+        12,
+        3
+      ],
+      "tfidf_ids": [
+        13,
+        1,
+        10
+      ],
+      "retrieved_chunk_ids": [
+        13,
+        12,
+        1
+      ],
+      "ranked_results": [
+        {
+          "id": 13,
+          "e5_rank": 1,
+          "tfidf_rank": 1,
+          "score": 0.03278688524590164
+        },
+        {
+          "id": 12,
+          "e5_rank": 2,
+          "tfidf_rank": null,
+          "score": 0.016129032258064516
+        },
+        {
+          "id": 1,
+          "e5_rank": null,
+          "tfidf_rank": 2,
+          "score": 0.016129032258064516
+        }
+      ],
+      "evidence_recall": 1,
+      "context_precision": 0.6666666666666666,
+      "reciprocal_rank_at_3": 1
+    },
+    {
+      "id": "h6",
+      "question": "入门练习结束时可以怎样逐渐恢复？下一次练习宜从什么动作开始？",
+      "expected_chunk_ids": [
+        9,
+        12
+      ],
+      "e5_ids": [
+        9,
+        15,
+        12
+      ],
+      "tfidf_ids": [
+        9,
+        12,
+        15
+      ],
+      "retrieved_chunk_ids": [
+        9,
+        15,
+        12
+      ],
+      "ranked_results": [
+        {
+          "id": 9,
+          "e5_rank": 1,
+          "tfidf_rank": 1,
+          "score": 0.03278688524590164
+        },
+        {
+          "id": 15,
+          "e5_rank": 2,
+          "tfidf_rank": 3,
+          "score": 0.03200204813108039
+        },
+        {
+          "id": 12,
+          "e5_rank": 3,
+          "tfidf_rank": 2,
+          "score": 0.03200204813108039
+        }
+      ],
+      "evidence_recall": 1,
+      "context_precision": 0.6666666666666666,
+      "reciprocal_rank_at_3": 1
+    },
+    {
+      "id": "h7",
+      "question": "手臂推水到什么位置结束？第二次下打应和哪个动作阶段衔接？",
+      "expected_chunk_ids": [
+        5,
+        6
+      ],
+      "e5_ids": [
+        5,
+        8,
+        10
+      ],
+      "tfidf_ids": [
+        6,
+        8,
+        2
+      ],
+      "retrieved_chunk_ids": [
+        8,
+        5,
+        6
+      ],
+      "ranked_results": [
+        {
+          "id": 8,
+          "e5_rank": 2,
+          "tfidf_rank": 2,
+          "score": 0.03225806451612903
+        },
+        {
+          "id": 5,
+          "e5_rank": 1,
+          "tfidf_rank": null,
+          "score": 0.01639344262295082
+        },
+        {
+          "id": 6,
+          "e5_rank": null,
+          "tfidf_rank": 1,
+          "score": 0.01639344262295082
+        }
+      ],
+      "evidence_recall": 1,
+      "context_precision": 0.6666666666666666,
+      "reciprocal_rank_at_3": 0.5
+    },
+    {
+      "id": "h8",
+      "question": "练海豚腿时双臂前伸困难，可以把手放在哪里？第三阶段先连做几个完整周期？",
+      "expected_chunk_ids": [
+        4,
+        8
+      ],
+      "e5_ids": [
+        8,
+        4,
+        9
+      ],
+      "tfidf_ids": [
+        8,
+        4,
+        9
+      ],
+      "retrieved_chunk_ids": [
+        8,
+        4,
+        9
+      ],
+      "ranked_results": [
+        {
+          "id": 8,
+          "e5_rank": 1,
+          "tfidf_rank": 1,
+          "score": 0.03278688524590164
+        },
+        {
+          "id": 4,
+          "e5_rank": 2,
+          "tfidf_rank": 2,
+          "score": 0.03225806451612903
+        },
+        {
+          "id": 9,
+          "e5_rank": 3,
+          "tfidf_rank": 3,
+          "score": 0.031746031746031744
+        }
+      ],
+      "evidence_recall": 1,
+      "context_precision": 0.6666666666666666,
+      "reciprocal_rank_at_3": 1
+    },
+    {
+      "id": "h9",
+      "question": "参加蝶泳比赛可以戴脚蹼吗？",
+      "expected_chunk_ids": [],
+      "e5_ids": [
+        13,
+        3,
+        12
+      ],
+      "tfidf_ids": [
+        13,
+        15,
+        1
+      ],
+      "retrieved_chunk_ids": [
+        13,
+        3,
+        15
+      ],
+      "ranked_results": [
+        {
+          "id": 13,
+          "e5_rank": 1,
+          "tfidf_rank": 1,
+          "score": 0.03278688524590164
+        },
+        {
+          "id": 3,
+          "e5_rank": 2,
+          "tfidf_rank": null,
+          "score": 0.016129032258064516
+        },
+        {
+          "id": 15,
+          "e5_rank": null,
+          "tfidf_rank": 2,
+          "score": 0.016129032258064516
+        }
+      ],
+      "evidence_recall": null,
+      "context_precision": null,
+      "reciprocal_rank_at_3": null
+    },
+    {
+      "id": "h10",
+      "question": "蝶泳入门时该买多长的脚蹼？请给出厘米数。",
+      "expected_chunk_ids": [],
+      "e5_ids": [
+        13,
+        3,
+        12
+      ],
+      "tfidf_ids": [
+        13,
+        12,
+        1
+      ],
+      "retrieved_chunk_ids": [
+        13,
+        12,
+        3
+      ],
+      "ranked_results": [
+        {
+          "id": 13,
+          "e5_rank": 1,
+          "tfidf_rank": 1,
+          "score": 0.03278688524590164
+        },
+        {
+          "id": 12,
+          "e5_rank": 3,
+          "tfidf_rank": 2,
+          "score": 0.03200204813108039
+        },
+        {
+          "id": 3,
+          "e5_rank": 2,
+          "tfidf_rank": null,
+          "score": 0.016129032258064516
+        }
+      ],
+      "evidence_recall": null,
+      "context_precision": null,
+      "reciprocal_rank_at_3": null
+    }
+  ]
+}

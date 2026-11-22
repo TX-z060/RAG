@@ -1,0 +1,634 @@
+{
+  "scope": "isolated uvicorn processes, real upload / DeepSeek / MySQL",
+  "dataset": "evals\\butterfly_retrieval_holdout.json",
+  "material": "evals\\manual\\butterfly_beginner_guide.txt",
+  "cases": 10,
+  "summaries": [
+    {
+      "arm": "dense",
+      "evidence_recall": 0.875,
+      "mrr_at_3": 0.8541666666666667,
+      "complete_evidence_count": 6,
+      "answerable_count": 8,
+      "correct_abstentions": 1,
+      "unanswerable_count": 2,
+      "history_verified": 10,
+      "median_latency_ms": 1426.9,
+      "history_expected": 10
+    },
+    {
+      "arm": "rrf",
+      "evidence_recall": 1.0,
+      "mrr_at_3": 0.9166666666666667,
+      "complete_evidence_count": 8,
+      "answerable_count": 8,
+      "correct_abstentions": 1,
+      "unanswerable_count": 2,
+      "history_verified": 10,
+      "median_latency_ms": 1575.6,
+      "history_expected": 10
+    },
+    {
+      "arm": "rrf_gate",
+      "evidence_recall": 1.0,
+      "mrr_at_3": 0.9166666666666667,
+      "complete_evidence_count": 8,
+      "answerable_count": 8,
+      "correct_abstentions": 2,
+      "unanswerable_count": 2,
+      "history_verified": 8,
+      "median_latency_ms": 2004.3,
+      "history_expected": 8
+    }
+  ],
+  "details": [
+    {
+      "arm": "dense",
+      "config": {
+        "RAG_RETRIEVER": "dense",
+        "RAG_DENSE_MIN_SCORE": "0.88",
+        "RAG_EVIDENCE_GATE": "false"
+      },
+      "cases": [
+        {
+          "id": "h1",
+          "category": "answerable",
+          "question": "海豚腿练习时，脚踝和膝盖应保持什么状态？",
+          "expected": [
+            4
+          ],
+          "retrieved": [
+            4,
+            9,
+            14
+          ],
+          "answer": "海豚腿练习时：\n\n- **脚踝要放松，脚尖自然延伸**，不要紧绷。[4]\n- **膝盖允许自然屈伸**，由躯干和髋部带动双腿上下摆动；不要过分把膝盖向腹部收起，避免变成“蹬自行车”。[4]\n- 双腿应靠拢，但**不要僵硬夹紧**。[4]",
+          "history_id": 27,
+          "correct_abstention": false,
+          "elapsed_ms": 12267.8,
+          "history_ok": true,
+          "snapshot_equal": true
+        },
+        {
+          "id": "h2",
+          "category": "answerable",
+          "question": "手掌和前臂刚抓到水后，应该把水往哪边推？",
+          "expected": [
+            5
+          ],
+          "retrieved": [
+            5,
+            10,
+            14
+          ],
+          "answer": "手掌和前臂建立抓水、感受到水的阻力后，应向身体后方推动水[片段5]。",
+          "history_id": 28,
+          "correct_abstention": false,
+          "elapsed_ms": 1237.3,
+          "history_ok": true,
+          "snapshot_equal": true
+        },
+        {
+          "id": "h3",
+          "category": "answerable",
+          "question": "嘴巴吸到气以后，头应该怎么处理？",
+          "expected": [
+            7
+          ],
+          "retrieved": [
+            7
+          ],
+          "answer": "嘴巴吸到气后，应及时把头放回水中，并配合手臂前移恢复较平的身体姿态[7]。不要等双手快入水才持续抬头找空气[7]。",
+          "history_id": 29,
+          "correct_abstention": false,
+          "elapsed_ms": 1268.0,
+          "history_ok": true,
+          "snapshot_equal": true
+        },
+        {
+          "id": "h4",
+          "category": "answerable",
+          "question": "跟教练反馈动作卡住时，怎样描述问题才便于他指导？",
+          "expected": [
+            15
+          ],
+          "retrieved": [
+            10,
+            15
+          ],
+          "answer": "反馈时尽量描述**能够观察到的具体现象**，而不是笼统说“游不动”。例如说“我吸气后第三次移臂开始卡住”，会比只说“我游不动”更容易得到针对性指导[15]。\n\n也可以请教练依次检查：入水位置是否合适、第二次打腿是否太晚、头部是否及时回水，以及动作是否始终向前[15]。",
+          "history_id": 30,
+          "correct_abstention": false,
+          "elapsed_ms": 1541.6,
+          "history_ok": true,
+          "snapshot_equal": true
+        },
+        {
+          "id": "h5",
+          "category": "answerable",
+          "question": "下水前应该了解场馆哪些安全信息？练蝶泳前为什么还要留意泳道是否拥挤？",
+          "expected": [
+            1,
+            13
+          ],
+          "retrieved": [
+            3,
+            12,
+            13
+          ],
+          "answer": "资料中未找到关于“下水前应了解场馆哪些安全信息”的相关内容。\n\n练蝶泳前要留意泳道是否拥挤，因为双臂移臂需要侧向空间，不能为了完成动作撞向旁边的人[13]。",
+          "history_id": 31,
+          "correct_abstention": false,
+          "elapsed_ms": 1426.9,
+          "history_ok": true,
+          "snapshot_equal": true
+        },
+        {
+          "id": "h6",
+          "category": "answerable",
+          "question": "入门练习结束时可以怎样逐渐恢复？下一次练习宜从什么动作开始？",
+          "expected": [
+            9,
+            12
+          ],
+          "retrieved": [
+            9,
+            12,
+            15
+          ],
+          "answer": "入门练习结束时，可以用轻松游或步行逐渐恢复[片段9]。下一次练习宜先从容易成功的动作开始，再连接完整配合[片段12]。",
+          "history_id": 32,
+          "correct_abstention": false,
+          "elapsed_ms": 1055.7,
+          "history_ok": true,
+          "snapshot_equal": true
+        },
+        {
+          "id": "h7",
+          "category": "answerable",
+          "question": "手臂推水到什么位置结束？第二次下打应和哪个动作阶段衔接？",
+          "expected": [
+            5,
+            6
+          ],
+          "retrieved": [
+            5,
+            8,
+            10
+          ],
+          "answer": "- 手臂推水在**髋部附近结束**。[片段5]  \n- 第二次下打（第二次打腿）应与**推水结束**衔接。[片段8][片段10]",
+          "history_id": 33,
+          "correct_abstention": false,
+          "elapsed_ms": 1513.6,
+          "history_ok": true,
+          "snapshot_equal": true
+        },
+        {
+          "id": "h8",
+          "category": "answerable",
+          "question": "练海豚腿时双臂前伸困难，可以把手放在哪里？第三阶段先连做几个完整周期？",
+          "expected": [
+            4,
+            8
+          ],
+          "retrieved": [
+            4,
+            8,
+            9
+          ],
+          "answer": "练海豚腿时如果双臂前伸困难，可以先将手臂放在体侧[4]。第三阶段先连做两到三个完整周期，在动作变形前停下[8]。",
+          "history_id": 34,
+          "correct_abstention": false,
+          "elapsed_ms": 1047.3,
+          "history_ok": true,
+          "snapshot_equal": true
+        },
+        {
+          "id": "h9",
+          "category": "unanswerable",
+          "question": "参加蝶泳比赛可以戴脚蹼吗？",
+          "expected": [],
+          "retrieved": [
+            3,
+            13
+          ],
+          "answer": "资料中未找到关于“蝶泳比赛是否可以戴脚蹼”的相关规定。\n\n现有资料只提到脚蹼可用于练习：它可以帮助部分学习者感受推进和节奏，但使用前应得到教练同意并遵守泳池规定，且不能把戴脚蹼的成绩直接当作徒手游进能力[13]。这些内容不涉及比赛规则。",
+          "history_id": 35,
+          "correct_abstention": false,
+          "elapsed_ms": 1524.9,
+          "history_ok": true,
+          "snapshot_equal": true
+        },
+        {
+          "id": "h10",
+          "category": "unanswerable",
+          "question": "蝶泳入门时该买多长的脚蹼？请给出厘米数。",
+          "expected": [],
+          "retrieved": [
+            13
+          ],
+          "answer": "资料中未找到相关信息。",
+          "history_id": 36,
+          "correct_abstention": true,
+          "elapsed_ms": 1059.3,
+          "history_ok": true,
+          "snapshot_equal": true
+        }
+      ]
+    },
+    {
+      "arm": "rrf",
+      "config": {
+        "RAG_RETRIEVER": "rrf",
+        "RAG_RRF_K": "60",
+        "RAG_RRF_TFIDF_GATE": "0.1",
+        "RAG_EVIDENCE_GATE": "false"
+      },
+      "cases": [
+        {
+          "id": "h1",
+          "category": "answerable",
+          "question": "海豚腿练习时，脚踝和膝盖应保持什么状态？",
+          "expected": [
+            4
+          ],
+          "retrieved": [
+            4,
+            9,
+            14
+          ],
+          "answer": "海豚腿练习时：\n\n- **脚踝**：应放松，脚尖自然延伸；练习时可观察脚踝是否紧绷。[片段4]\n- **膝盖**：自然跟随动作，允许自然屈伸；由躯干和髋部带动双腿上下摆动，不要过分把膝盖向腹部收起，避免变成“蹬自行车”。[片段4]",
+          "history_id": 37,
+          "correct_abstention": false,
+          "elapsed_ms": 12223.2,
+          "history_ok": true,
+          "snapshot_equal": true
+        },
+        {
+          "id": "h2",
+          "category": "answerable",
+          "question": "手掌和前臂刚抓到水后，应该把水往哪边推？",
+          "expected": [
+            5
+          ],
+          "retrieved": [
+            5,
+            10,
+            13
+          ],
+          "answer": "手掌和前臂建立抓水、感受到水的阻力后，应向**身体后方推动**，推水到**髋部附近**结束。[片段5]",
+          "history_id": 38,
+          "correct_abstention": false,
+          "elapsed_ms": 1575.6,
+          "history_ok": true,
+          "snapshot_equal": true
+        },
+        {
+          "id": "h3",
+          "category": "answerable",
+          "question": "嘴巴吸到气以后，头应该怎么处理？",
+          "expected": [
+            7
+          ],
+          "retrieved": [
+            7,
+            10,
+            13
+          ],
+          "answer": "嘴巴吸到气后，应**及时把头放回水中**，并配合手臂前移，恢复较平的身体姿态；不要持续抬头找空气[7]。同时要避免吸气拖得太久、头部回水过晚[10]。",
+          "history_id": 39,
+          "correct_abstention": false,
+          "elapsed_ms": 1735.1,
+          "history_ok": true,
+          "snapshot_equal": true
+        },
+        {
+          "id": "h4",
+          "category": "answerable",
+          "question": "跟教练反馈动作卡住时，怎样描述问题才便于他指导？",
+          "expected": [
+            15
+          ],
+          "retrieved": [
+            9,
+            10,
+            15
+          ],
+          "answer": "跟教练反馈时，**尽量描述能够观察到的现象，而不是只说“游不动”**；例如说“我吸气后第三次移臂开始卡住”，这样更容易得到针对性指导。[片段15]\n\n也可以请教练依次检查这些具体环节：入水位置是否合适、第二次打腿是否太晚、头部是否及时回水、动作是否始终向前。[片段15]\n\n如果一次尝试改善了某个细节，下一轮先重复它，不要马上加快速度或增加距离；每次训练结束时明确下一次只优先巩固哪一项，让学习过程有可观察的连续目标。[片段15]",
+          "history_id": 40,
+          "correct_abstention": false,
+          "elapsed_ms": 4035.3,
+          "history_ok": true,
+          "snapshot_equal": true
+        },
+        {
+          "id": "h5",
+          "category": "answerable",
+          "question": "下水前应该了解场馆哪些安全信息？练蝶泳前为什么还要留意泳道是否拥挤？",
+          "expected": [
+            1,
+            13
+          ],
+          "retrieved": [
+            1,
+            12,
+            13
+          ],
+          "answer": "下水前应了解场馆的安全信息包括：是否有救生员值守、水深、出入口位置和泳道规则，并注意与其他泳者保持距离、不要单独练习等。[1]\n\n练蝶泳前要留意泳道是否拥挤，是因为蝶泳双臂移臂需要侧向空间；泳道拥挤时，不能为了完成动作而撞向旁边的人。[13]",
+          "history_id": 41,
+          "correct_abstention": false,
+          "elapsed_ms": 2557.3,
+          "history_ok": true,
+          "snapshot_equal": true
+        },
+        {
+          "id": "h6",
+          "category": "answerable",
+          "question": "入门练习结束时可以怎样逐渐恢复？下一次练习宜从什么动作开始？",
+          "expected": [
+            9,
+            12
+          ],
+          "retrieved": [
+            9,
+            12,
+            15
+          ],
+          "answer": "入门练习结束时，可以用轻松游或步行逐渐恢复[片段9]。下一次练习宜先从容易成功的动作开始，再连接完整配合[片段12]。",
+          "history_id": 42,
+          "correct_abstention": false,
+          "elapsed_ms": 1131.9,
+          "history_ok": true,
+          "snapshot_equal": true
+        },
+        {
+          "id": "h7",
+          "category": "answerable",
+          "question": "手臂推水到什么位置结束？第二次下打应和哪个动作阶段衔接？",
+          "expected": [
+            5,
+            6
+          ],
+          "retrieved": [
+            5,
+            6,
+            8
+          ],
+          "answer": "- 手臂推水在**髋部附近**结束。[片段5]  \n- 第二次下打应与**水下划臂后段、推水结束及手臂出水**衔接；动作上要与**推水末段协调**，不要等双臂完全伸到空中才开始。[片段6]",
+          "history_id": 43,
+          "correct_abstention": false,
+          "elapsed_ms": 1239.9,
+          "history_ok": true,
+          "snapshot_equal": true
+        },
+        {
+          "id": "h8",
+          "category": "answerable",
+          "question": "练海豚腿时双臂前伸困难，可以把手放在哪里？第三阶段先连做几个完整周期？",
+          "expected": [
+            4,
+            8
+          ],
+          "retrieved": [
+            4,
+            8,
+            9
+          ],
+          "answer": "练海豚腿时，如果双臂前伸困难，可以先将手臂放在体侧[4]。  \n第三阶段先做两到三个完整周期，动作变形前停下，正常呼吸后再练[8]。",
+          "history_id": 44,
+          "correct_abstention": false,
+          "elapsed_ms": 1394.6,
+          "history_ok": true,
+          "snapshot_equal": true
+        },
+        {
+          "id": "h9",
+          "category": "unanswerable",
+          "question": "参加蝶泳比赛可以戴脚蹼吗？",
+          "expected": [],
+          "retrieved": [
+            3,
+            13,
+            15
+          ],
+          "answer": "资料中未找到关于“参加蝶泳比赛能否戴脚蹼”的相关信息。\n\n资料片段13只说明脚蹼使用前应得到教练同意并遵守泳池规定，且不能把戴脚蹼的成绩直接当作徒手游进能力[13]，并未涉及比赛规则。",
+          "history_id": 45,
+          "correct_abstention": false,
+          "elapsed_ms": 1418.9,
+          "history_ok": true,
+          "snapshot_equal": true
+        },
+        {
+          "id": "h10",
+          "category": "unanswerable",
+          "question": "蝶泳入门时该买多长的脚蹼？请给出厘米数。",
+          "expected": [],
+          "retrieved": [
+            3,
+            12,
+            13
+          ],
+          "answer": "资料中未找到相关信息。资料只提到使用脚蹼前应得到教练同意并遵守泳池规定，且不能把戴脚蹼的成绩直接当作徒手游进能力[13]，未提供脚蹼长度的厘米数。",
+          "history_id": 46,
+          "correct_abstention": true,
+          "elapsed_ms": 1548.4,
+          "history_ok": true,
+          "snapshot_equal": true
+        }
+      ]
+    },
+    {
+      "arm": "rrf_gate",
+      "config": {
+        "RAG_RETRIEVER": "rrf",
+        "RAG_RRF_K": "60",
+        "RAG_RRF_TFIDF_GATE": "0.1",
+        "RAG_EVIDENCE_GATE": "true"
+      },
+      "cases": [
+        {
+          "id": "h1",
+          "category": "answerable",
+          "question": "海豚腿练习时，脚踝和膝盖应保持什么状态？",
+          "expected": [
+            4
+          ],
+          "retrieved": [
+            4,
+            9,
+            14
+          ],
+          "answer": "海豚腿练习时，脚踝应**放松，脚尖自然延伸**；膝盖应**自然跟随、允许自然屈伸**，不要过分向腹部收起，以免变成“蹬自行车”式的动作。[片段4]",
+          "history_id": 47,
+          "correct_abstention": false,
+          "elapsed_ms": 13793.6,
+          "history_ok": true,
+          "snapshot_equal": true
+        },
+        {
+          "id": "h2",
+          "category": "answerable",
+          "question": "手掌和前臂刚抓到水后，应该把水往哪边推？",
+          "expected": [
+            5
+          ],
+          "retrieved": [
+            5,
+            10,
+            13
+          ],
+          "answer": "手掌和前臂建立抓水后，应逐渐屈肘，向**身体后方**推动水，推水到髋部附近结束。[5]",
+          "history_id": 48,
+          "correct_abstention": false,
+          "elapsed_ms": 1799.2,
+          "history_ok": true,
+          "snapshot_equal": true
+        },
+        {
+          "id": "h3",
+          "category": "answerable",
+          "question": "嘴巴吸到气以后，头应该怎么处理？",
+          "expected": [
+            7
+          ],
+          "retrieved": [
+            7,
+            10,
+            13
+          ],
+          "answer": "嘴巴吸到气后，应**及时把头放回水中**，并配合手臂前移，恢复较平的身体姿态；不要持续抬头找空气。[7]",
+          "history_id": 49,
+          "correct_abstention": false,
+          "elapsed_ms": 1809.8,
+          "history_ok": true,
+          "snapshot_equal": true
+        },
+        {
+          "id": "h4",
+          "category": "answerable",
+          "question": "跟教练反馈动作卡住时，怎样描述问题才便于他指导？",
+          "expected": [
+            15
+          ],
+          "retrieved": [
+            9,
+            10,
+            15
+          ],
+          "answer": "反馈时尽量描述**能够观察到的具体现象**，而不是只说“游不动”。例如说“我吸气后第三次移臂开始卡住”，这样更容易得到针对性指导[15]。\n\n也可以请教练依次检查：入水位置是否合适、第二次打腿是否太晚、头部是否及时回水，以及动作是否始终向前[15]。",
+          "history_id": 50,
+          "correct_abstention": false,
+          "elapsed_ms": 2941.2,
+          "history_ok": true,
+          "snapshot_equal": true
+        },
+        {
+          "id": "h5",
+          "category": "answerable",
+          "question": "下水前应该了解场馆哪些安全信息？练蝶泳前为什么还要留意泳道是否拥挤？",
+          "expected": [
+            1,
+            13
+          ],
+          "retrieved": [
+            1,
+            12,
+            13
+          ],
+          "answer": "下水前应确认：选择有救生员值守的正规泳池，最好有合格教练现场指导；了解水深、出入口和泳道规则，并与其他泳者保持距离；不要单独练习[1]。\n\n练蝶泳前要留意泳道是否拥挤，因为蝶泳双臂移臂需要侧向空间，泳道拥挤时容易为了完成动作而撞到旁边的人[13]。",
+          "history_id": 51,
+          "correct_abstention": false,
+          "elapsed_ms": 4108.9,
+          "history_ok": true,
+          "snapshot_equal": true
+        },
+        {
+          "id": "h6",
+          "category": "answerable",
+          "question": "入门练习结束时可以怎样逐渐恢复？下一次练习宜从什么动作开始？",
+          "expected": [
+            9,
+            12
+          ],
+          "retrieved": [
+            9,
+            12,
+            15
+          ],
+          "answer": "入门练习结束时，可以用轻松游或步行逐渐恢复[片段9]。下一次练习宜先从容易成功的动作开始，再连接完整配合[片段12]。",
+          "history_id": 52,
+          "correct_abstention": false,
+          "elapsed_ms": 1817.4,
+          "history_ok": true,
+          "snapshot_equal": true
+        },
+        {
+          "id": "h7",
+          "category": "answerable",
+          "question": "手臂推水到什么位置结束？第二次下打应和哪个动作阶段衔接？",
+          "expected": [
+            5,
+            6
+          ],
+          "retrieved": [
+            5,
+            6,
+            8
+          ],
+          "answer": "手臂推水在**髋部附近结束**，随后双臂同步从两侧移向前方。[5]\n\n第二次下打应与**水下划臂后段、推水结束及手臂出水**衔接，并注意与**推水末段**协调，不要等双臂完全伸到空中才开始。[6]",
+          "history_id": 53,
+          "correct_abstention": false,
+          "elapsed_ms": 2373.1,
+          "history_ok": true,
+          "snapshot_equal": true
+        },
+        {
+          "id": "h8",
+          "category": "answerable",
+          "question": "练海豚腿时双臂前伸困难，可以把手放在哪里？第三阶段先连做几个完整周期？",
+          "expected": [
+            4,
+            8
+          ],
+          "retrieved": [
+            4,
+            8,
+            9
+          ],
+          "answer": "练海豚腿时，如果双臂前伸困难，可以先将手臂放在体侧[4]。\n\n第三阶段先做两到三个完整周期，并在动作变形前停下[8]。",
+          "history_id": 54,
+          "correct_abstention": false,
+          "elapsed_ms": 2004.3,
+          "history_ok": true,
+          "snapshot_equal": true
+        },
+        {
+          "id": "h9",
+          "category": "unanswerable",
+          "question": "参加蝶泳比赛可以戴脚蹼吗？",
+          "expected": [],
+          "retrieved": [],
+          "answer": "资料中未找到相关信息。",
+          "history_id": null,
+          "correct_abstention": true,
+          "elapsed_ms": 1969.2,
+          "history_ok": null,
+          "snapshot_equal": null
+        },
+        {
+          "id": "h10",
+          "category": "unanswerable",
+          "question": "蝶泳入门时该买多长的脚蹼？请给出厘米数。",
+          "expected": [],
+          "retrieved": [],
+          "answer": "资料中未找到相关信息。",
+          "history_id": null,
+          "correct_abstention": true,
+          "elapsed_ms": 1924.2,
+          "history_ok": null,
+          "snapshot_equal": null
+        }
+      ]
+    }
+  ]
+}

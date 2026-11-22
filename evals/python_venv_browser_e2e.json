@@ -1,0 +1,228 @@
+{
+  "scope": "isolated Windows application, real test MySQL and DeepSeek",
+  "model": "deepseek-flash",
+  "retriever": "E5",
+  "min_score": 0.88,
+  "browser": "Edg/158.0.4370.33",
+  "mysql": "8.0.42",
+  "trace": [
+    {
+      "stage": "upload",
+      "http": 200,
+      "characters": 4035,
+      "chunks": 19
+    }
+  ],
+  "cases": [
+    {
+      "id": "p04",
+      "category": "direct",
+      "question": "旧版本的 requests 要怎么指定安装？",
+      "expected": [
+        9
+      ],
+      "displayed": true,
+      "retrieved": [
+        9,
+        8
+      ],
+      "citations": [
+        "[9]"
+      ],
+      "citation_clicks": [
+        {
+          "id": 9,
+          "target": "9",
+          "opened": true
+        }
+      ],
+      "record": 1,
+      "status": 200,
+      "state": "已保存至历史",
+      "api_snapshot_equal": true,
+      "reload_history": true,
+      "reload_snapshot_equal": true,
+      "reload_history_answer_visible": true,
+      "review": "完整回答了如何指定 requests 旧版本，引用支持命令。"
+    },
+    {
+      "id": "p05",
+      "category": "multi",
+      "question": "怎样建一个名为 tutorial-env 的虚拟环境，然后在 macOS 上进入这个环境？",
+      "expected": [
+        3,
+        4
+      ],
+      "displayed": true,
+      "retrieved": [
+        3,
+        4,
+        16
+      ],
+      "citations": [
+        "[3]",
+        "[4]"
+      ],
+      "citation_clicks": [
+        {
+          "id": 3,
+          "target": "3",
+          "opened": true
+        },
+        {
+          "id": 4,
+          "target": "4",
+          "opened": true
+        }
+      ],
+      "record": 2,
+      "status": 200,
+      "state": "已保存至历史",
+      "api_snapshot_equal": true,
+      "reload_history": true,
+      "reload_snapshot_equal": true,
+      "reload_history_answer_visible": true,
+      "review": "完整回答创建环境和 macOS 激活两个步骤，分别引用两处原文。"
+    },
+    {
+      "id": "p07",
+      "category": "multi",
+      "question": "怎样把当前包版本导出到 requirements.txt，另一台机器要执行什么命令安装？",
+      "expected": [
+        16,
+        17
+      ],
+      "displayed": true,
+      "retrieved": [
+        16,
+        15,
+        9
+      ],
+      "citations": [
+        "[16]",
+        "[16]",
+        "[15]"
+      ],
+      "citation_clicks": [
+        {
+          "id": 16,
+          "target": "16",
+          "opened": true
+        },
+        {
+          "id": 16,
+          "target": "16",
+          "opened": true
+        },
+        {
+          "id": 15,
+          "target": "15",
+          "opened": true
+        }
+      ],
+      "record": 3,
+      "status": 200,
+      "state": "已保存至历史",
+      "api_snapshot_equal": false,
+      "reload_history": true,
+      "reload_snapshot_equal": true,
+      "reload_history_answer_visible": true,
+      "review": "完整答出导出和安装。检索漏掉含有完整安装命令的片段 17，模型利用片段 15 中的命令格式和片段 16 的安装选项拼出完整命令。"
+    },
+    {
+      "id": "p11",
+      "category": "out_of_scope",
+      "question": "如何让 pip 在安装 requirements.txt 时校验每个依赖的哈希值？",
+      "expected": [],
+      "displayed": true,
+      "retrieved": [
+        16,
+        15,
+        9
+      ],
+      "citations": [
+        "[15]",
+        "[16]",
+        "[9]"
+      ],
+      "citation_clicks": [
+        {
+          "id": 15,
+          "target": "15",
+          "opened": true
+        },
+        {
+          "id": 16,
+          "target": "16",
+          "opened": true
+        },
+        {
+          "id": 9,
+          "target": "9",
+          "opened": true
+        }
+      ],
+      "record": 4,
+      "status": 200,
+      "state": "已保存至历史",
+      "api_snapshot_equal": false,
+      "reload_history": true,
+      "reload_snapshot_equal": true,
+      "reload_history_answer_visible": true,
+      "review": "明确说明资料没有哈希校验方法，未给执行步骤。括号中的两个参数名称超出了原文。"
+    }
+  ],
+  "db_records": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "network_errors": [],
+  "console_errors": [],
+  "source": {
+    "title": "Python 官方教程《虚拟环境和包》",
+    "url": "https://docs.python.org/zh-cn/3/tutorial/venv.html"
+  },
+  "snapshot_diagnostic": [
+    {
+      "id": "p04",
+      "answer_equal": true,
+      "different": []
+    },
+    {
+      "id": "p05",
+      "answer_equal": true,
+      "different": []
+    },
+    {
+      "id": "p07",
+      "answer_equal": true,
+      "different": [
+        {
+          "id": 16,
+          "field": "score",
+          "values": [
+            0.9013141393661499,
+            0.90131413936615
+          ]
+        }
+      ]
+    },
+    {
+      "id": "p11",
+      "answer_equal": true,
+      "different": [
+        {
+          "id": 16,
+          "field": "score",
+          "values": [
+            0.9023774862289429,
+            0.9023774862289428
+          ]
+        }
+      ]
+    }
+  ],
+  "production_tested": false
+}

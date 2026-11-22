@@ -1,0 +1,751 @@
+{
+  "source": {
+    "title": "Python 官方教程 · 虚拟环境和包",
+    "url": "https://docs.python.org/zh-cn/3/tutorial/venv.html",
+    "html_sha256": "73865760717374ed27c67151fea491da79d7676c5a6c9a6e790a002f37cc2fdf",
+    "content": "Chapter body extracted from HTML with headings, paragraphs and code blocks separated by newlines.",
+    "chunk_count": 19,
+    "chunk_size": 300,
+    "chunk_overlap": 50
+  },
+  "dataset_sha256": "9599a7fb768769ad6ef1e3737bfd440ad41707c659f56d911887f80c6f9c7f95",
+  "settings": {
+    "top_k": 3,
+    "neighbor_window": 0,
+    "model": "intfloat/multilingual-e5-small",
+    "dense_088": "E5 score > 0.88 (production configuration)",
+    "dense_087": "E5 score >= 0.87 (fixed sweep candidate)",
+    "rrf_tfidf_gate_010": "RRF k=60 over E5 top 3 and positive TF-IDF top 3. Sort by RRF score descending, E5 rank ascending, chunk ID ascending. Return up to 3 results only when best TF-IDF score >= 0.10."
+  },
+  "metrics": {
+    "dense_088": {
+      "mean_evidence_recall": 0.75,
+      "mean_context_precision": 0.4166666666666667,
+      "mrr_at_3": 0.8125,
+      "multi_evidence_complete": 2,
+      "multi_evidence_count": 4,
+      "unanswerable_empty": 3,
+      "unanswerable_count": 6
+    },
+    "dense_087": {
+      "mean_evidence_recall": 0.875,
+      "mean_context_precision": 0.4166666666666667,
+      "mrr_at_3": 0.8541666666666666,
+      "multi_evidence_complete": 2,
+      "multi_evidence_count": 4,
+      "unanswerable_empty": 0,
+      "unanswerable_count": 6
+    },
+    "rrf_tfidf_gate_010": {
+      "mean_evidence_recall": 1,
+      "mean_context_precision": 0.49999999999999994,
+      "mrr_at_3": 0.875,
+      "multi_evidence_complete": 4,
+      "multi_evidence_count": 4,
+      "unanswerable_empty": 0,
+      "unanswerable_count": 6
+    }
+  },
+  "cases": [
+    {
+      "id": "p01",
+      "question": "某个应用升级了依赖，另一个程序还要用旧版，如何让它们各自使用需要的版本？",
+      "expected_chunk_ids": [
+        2
+      ],
+      "dense_top3": [
+        {
+          "id": 10,
+          "score": 0.8894298076629639
+        },
+        {
+          "id": 8,
+          "score": 0.8823617696762085
+        },
+        {
+          "id": 2,
+          "score": 0.8788205981254578
+        }
+      ],
+      "tfidf_top3": [
+        {
+          "id": 1,
+          "score": 0.3756836387885994
+        },
+        {
+          "id": 2,
+          "score": 0.2680045804229075
+        },
+        {
+          "id": 10,
+          "score": 0.15507879285346585
+        }
+      ],
+      "selected": {
+        "dense_088": [
+          10,
+          8
+        ],
+        "dense_087": [
+          10,
+          8,
+          2
+        ],
+        "rrf_tfidf_gate_010": [
+          10,
+          2,
+          1
+        ]
+      }
+    },
+    {
+      "id": "p02",
+      "question": "创建环境时我用的是 python3.12，新环境会采用哪个 Python 版本？",
+      "expected_chunk_ids": [
+        2
+      ],
+      "dense_top3": [
+        {
+          "id": 2,
+          "score": 0.9111245274543762
+        },
+        {
+          "id": 8,
+          "score": 0.8992900848388672
+        },
+        {
+          "id": 4,
+          "score": 0.895311176776886
+        }
+      ],
+      "tfidf_top3": [
+        {
+          "id": 2,
+          "score": 0.38985041764399714
+        },
+        {
+          "id": 6,
+          "score": 0.31227008391855365
+        },
+        {
+          "id": 15,
+          "score": 0.2702409615030492
+        }
+      ],
+      "selected": {
+        "dense_088": [
+          2,
+          8,
+          4
+        ],
+        "dense_087": [
+          2,
+          8,
+          4
+        ],
+        "rrf_tfidf_gate_010": [
+          2,
+          8,
+          6
+        ]
+      }
+    },
+    {
+      "id": "p03",
+      "question": "激活后，命令行提示符和 python 命令分别有什么变化？",
+      "expected_chunk_ids": [
+        4
+      ],
+      "dense_top3": [
+        {
+          "id": 4,
+          "score": 0.897000253200531
+        },
+        {
+          "id": 6,
+          "score": 0.8830780982971191
+        },
+        {
+          "id": 10,
+          "score": 0.8790513873100281
+        }
+      ],
+      "tfidf_top3": [
+        {
+          "id": 6,
+          "score": 0.2316675811016454
+        },
+        {
+          "id": 4,
+          "score": 0.22345885236611662
+        },
+        {
+          "id": 19,
+          "score": 0.14676304706515403
+        }
+      ],
+      "selected": {
+        "dense_088": [
+          4,
+          6
+        ],
+        "dense_087": [
+          4,
+          6,
+          10
+        ],
+        "rrf_tfidf_gate_010": [
+          4,
+          6,
+          10
+        ]
+      }
+    },
+    {
+      "id": "p04",
+      "question": "旧版本的 requests 要怎么指定安装？",
+      "expected_chunk_ids": [
+        9
+      ],
+      "dense_top3": [
+        {
+          "id": 9,
+          "score": 0.904556155204773
+        },
+        {
+          "id": 8,
+          "score": 0.8853176832199097
+        },
+        {
+          "id": 10,
+          "score": 0.8768739700317383
+        }
+      ],
+      "tfidf_top3": [
+        {
+          "id": 11,
+          "score": 0.4414500387352053
+        },
+        {
+          "id": 9,
+          "score": 0.4019342512427716
+        },
+        {
+          "id": 18,
+          "score": 0.2884921623666027
+        }
+      ],
+      "selected": {
+        "dense_088": [
+          9,
+          8
+        ],
+        "dense_087": [
+          9,
+          8,
+          10
+        ],
+        "rrf_tfidf_gate_010": [
+          9,
+          11,
+          8
+        ]
+      }
+    },
+    {
+      "id": "p05",
+      "question": "怎样建一个名为 tutorial-env 的虚拟环境，然后在 macOS 上进入这个环境？",
+      "expected_chunk_ids": [
+        3,
+        4
+      ],
+      "dense_top3": [
+        {
+          "id": 3,
+          "score": 0.9115455150604248
+        },
+        {
+          "id": 4,
+          "score": 0.902839720249176
+        },
+        {
+          "id": 16,
+          "score": 0.8951283097267151
+        }
+      ],
+      "tfidf_top3": [
+        {
+          "id": 4,
+          "score": 0.32765562243493423
+        },
+        {
+          "id": 3,
+          "score": 0.3194737700126715
+        },
+        {
+          "id": 2,
+          "score": 0.24721938161357232
+        }
+      ],
+      "selected": {
+        "dense_088": [
+          3,
+          4,
+          16
+        ],
+        "dense_087": [
+          3,
+          4,
+          16
+        ],
+        "rrf_tfidf_gate_010": [
+          3,
+          4,
+          16
+        ]
+      }
+    },
+    {
+      "id": "p06",
+      "question": "怎么固定安装旧版 requests，之后又怎样把它升级到最新版本？请给出两条命令。",
+      "expected_chunk_ids": [
+        9,
+        11
+      ],
+      "dense_top3": [
+        {
+          "id": 10,
+          "score": 0.901820182800293
+        },
+        {
+          "id": 9,
+          "score": 0.9001476168632507
+        },
+        {
+          "id": 8,
+          "score": 0.8904123306274414
+        }
+      ],
+      "tfidf_top3": [
+        {
+          "id": 11,
+          "score": 0.2996363625401985
+        },
+        {
+          "id": 9,
+          "score": 0.282515493932337
+        },
+        {
+          "id": 10,
+          "score": 0.25617574147387756
+        }
+      ],
+      "selected": {
+        "dense_088": [
+          10,
+          9,
+          8
+        ],
+        "dense_087": [
+          10,
+          9,
+          8
+        ],
+        "rrf_tfidf_gate_010": [
+          10,
+          9,
+          11
+        ]
+      }
+    },
+    {
+      "id": "p07",
+      "question": "怎样把当前包版本导出到 requirements.txt，另一台机器要执行什么命令安装？",
+      "expected_chunk_ids": [
+        16,
+        17
+      ],
+      "dense_top3": [
+        {
+          "id": 16,
+          "score": 0.9013141393661499
+        },
+        {
+          "id": 15,
+          "score": 0.8868604898452759
+        },
+        {
+          "id": 9,
+          "score": 0.8858788013458252
+        }
+      ],
+      "tfidf_top3": [
+        {
+          "id": 16,
+          "score": 0.5097218863594416
+        },
+        {
+          "id": 17,
+          "score": 0.46465254176368714
+        },
+        {
+          "id": 15,
+          "score": 0.2508458412271984
+        }
+      ],
+      "selected": {
+        "dense_088": [
+          16,
+          15,
+          9
+        ],
+        "dense_087": [
+          16,
+          15,
+          9
+        ],
+        "rrf_tfidf_gate_010": [
+          16,
+          15,
+          17
+        ]
+      }
+    },
+    {
+      "id": "p08",
+      "question": "激活后 PYTHONPATH 会不会自动改变？当前的 python 命令会指向哪里？",
+      "expected_chunk_ids": [
+        4,
+        6
+      ],
+      "dense_top3": [
+        {
+          "id": 4,
+          "score": 0.897635817527771
+        },
+        {
+          "id": 6,
+          "score": 0.8975061178207397
+        },
+        {
+          "id": 10,
+          "score": 0.8822674751281738
+        }
+      ],
+      "tfidf_top3": [
+        {
+          "id": 6,
+          "score": 0.41988862895439555
+        },
+        {
+          "id": 19,
+          "score": 0.2439226714309124
+        },
+        {
+          "id": 4,
+          "score": 0.23810346602999555
+        }
+      ],
+      "selected": {
+        "dense_088": [
+          4,
+          6,
+          10
+        ],
+        "dense_087": [
+          4,
+          6,
+          10
+        ],
+        "rrf_tfidf_gate_010": [
+          6,
+          4,
+          19
+        ]
+      }
+    },
+    {
+      "id": "p09",
+      "question": "Python 虚拟环境里怎么安装支持 CUDA 12.4 的 PyTorch？",
+      "expected_chunk_ids": [],
+      "dense_top3": [
+        {
+          "id": 1,
+          "score": 0.8957557678222656
+        },
+        {
+          "id": 2,
+          "score": 0.8955011367797852
+        },
+        {
+          "id": 3,
+          "score": 0.8861664533615112
+        }
+      ],
+      "tfidf_top3": [
+        {
+          "id": 2,
+          "score": 0.3223251962451599
+        },
+        {
+          "id": 6,
+          "score": 0.31816144865180224
+        },
+        {
+          "id": 15,
+          "score": 0.28815905633296274
+        }
+      ],
+      "selected": {
+        "dense_088": [
+          1,
+          2,
+          3
+        ],
+        "dense_087": [
+          1,
+          2,
+          3
+        ],
+        "rrf_tfidf_gate_010": [
+          2,
+          1,
+          6
+        ]
+      }
+    },
+    {
+      "id": "p10",
+      "question": "pip install 怎么配置公司代理并为代理设置用户名和密码？",
+      "expected_chunk_ids": [],
+      "dense_top3": [
+        {
+          "id": 7,
+          "score": 0.8726463317871094
+        },
+        {
+          "id": 6,
+          "score": 0.8617928624153137
+        },
+        {
+          "id": 12,
+          "score": 0.8607913255691528
+        }
+      ],
+      "tfidf_top3": [
+        {
+          "id": 11,
+          "score": 0.25065619146629387
+        },
+        {
+          "id": 8,
+          "score": 0.2383545020224277
+        },
+        {
+          "id": 18,
+          "score": 0.21899384982521225
+        }
+      ],
+      "selected": {
+        "dense_088": [],
+        "dense_087": [
+          7
+        ],
+        "rrf_tfidf_gate_010": [
+          7,
+          11,
+          6
+        ]
+      }
+    },
+    {
+      "id": "p11",
+      "question": "如何让 pip 在安装 requirements.txt 时校验每个依赖的哈希值？",
+      "expected_chunk_ids": [],
+      "dense_top3": [
+        {
+          "id": 16,
+          "score": 0.9023774862289429
+        },
+        {
+          "id": 15,
+          "score": 0.8973779678344727
+        },
+        {
+          "id": 9,
+          "score": 0.889751672744751
+        }
+      ],
+      "tfidf_top3": [
+        {
+          "id": 16,
+          "score": 0.5869339037364059
+        },
+        {
+          "id": 17,
+          "score": 0.5565758361564935
+        },
+        {
+          "id": 15,
+          "score": 0.38811176496232236
+        }
+      ],
+      "selected": {
+        "dense_088": [
+          16,
+          15,
+          9
+        ],
+        "dense_087": [
+          16,
+          15,
+          9
+        ],
+        "rrf_tfidf_gate_010": [
+          16,
+          15,
+          17
+        ]
+      }
+    },
+    {
+      "id": "p12",
+      "question": "在 Windows PowerShell 里激活 Python 虚拟环境被执行策略阻止时，怎样修改策略？",
+      "expected_chunk_ids": [],
+      "dense_top3": [
+        {
+          "id": 6,
+          "score": 0.9145917892456055
+        },
+        {
+          "id": 4,
+          "score": 0.9139573574066162
+        },
+        {
+          "id": 3,
+          "score": 0.8908113241195679
+        }
+      ],
+      "tfidf_top3": [
+        {
+          "id": 4,
+          "score": 0.36136310198472615
+        },
+        {
+          "id": 6,
+          "score": 0.2994529038737671
+        },
+        {
+          "id": 3,
+          "score": 0.24352154701153036
+        }
+      ],
+      "selected": {
+        "dense_088": [
+          6,
+          4,
+          3
+        ],
+        "dense_087": [
+          6,
+          4,
+          3
+        ],
+        "rrf_tfidf_gate_010": [
+          6,
+          4,
+          3
+        ]
+      }
+    },
+    {
+      "id": "p13",
+      "question": "维护 PyPI 上的包时，如何给发布账号启用双因素认证？",
+      "expected_chunk_ids": [],
+      "dense_top3": [
+        {
+          "id": 9,
+          "score": 0.8749864101409912
+        },
+        {
+          "id": 12,
+          "score": 0.8656692504882812
+        },
+        {
+          "id": 8,
+          "score": 0.8648483157157898
+        }
+      ],
+      "tfidf_top3": [
+        {
+          "id": 7,
+          "score": 0.17763211260386716
+        },
+        {
+          "id": 19,
+          "score": 0.17256855832012352
+        },
+        {
+          "id": 15,
+          "score": 0.15350952249886932
+        }
+      ],
+      "selected": {
+        "dense_088": [],
+        "dense_087": [
+          9
+        ],
+        "rrf_tfidf_gate_010": [
+          9,
+          7,
+          12
+        ]
+      }
+    },
+    {
+      "id": "p14",
+      "question": "能否把已经创建的 venv 移动到另一台电脑并修复脚本里的绝对路径？",
+      "expected_chunk_ids": [],
+      "dense_top3": [
+        {
+          "id": 3,
+          "score": 0.8729885816574097
+        },
+        {
+          "id": 4,
+          "score": 0.8705766201019287
+        },
+        {
+          "id": 6,
+          "score": 0.8620703220367432
+        }
+      ],
+      "tfidf_top3": [
+        {
+          "id": 3,
+          "score": 0.28042661760613613
+        },
+        {
+          "id": 2,
+          "score": 0.1799037664039544
+        },
+        {
+          "id": 4,
+          "score": 0.12335336525423868
+        }
+      ],
+      "selected": {
+        "dense_088": [],
+        "dense_087": [
+          3,
+          4
+        ],
+        "rrf_tfidf_gate_010": [
+          3,
+          4,
+          2
+        ]
+      }
+    }
+  ]
+}

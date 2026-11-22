@@ -1,0 +1,171 @@
+{
+  "source": {
+    "path": "deploy/E5-DEPLOYMENT.md",
+    "kind": "project_deployment_document",
+    "sha256": "3da32c2d7d5d0ac37662c2b9d33050416692b9c0c24f7eeeb9d659bec5072bba"
+  },
+  "splitter": {
+    "chunk_size": 300,
+    "chunk_overlap": 50,
+    "separators": [
+      "\n\n",
+      "\n",
+      "。",
+      "，",
+      ",",
+      " ",
+      ""
+    ]
+  },
+  "chunks": [
+    {
+      "id": 1,
+      "text": "# E5 向量检索 Linux 部署记录\n\n## 已验证环境\n\n- 系统：CentOS Stream 9\n- Python：3.12\n- 运行代码版本：9b86403\n- 发布目录：/home/zz/releases/course-assistant/9b86403\n- PyTorch：2.15.0+cpu\n- Sentence Transformers：6.3.0\n- 模型：intfloat/multilingual-e5-small\n- 模型缓存：发布目录下的 .cache/huggingface\n- Linux MySQL 端口：3306\n\n## 运行链路"
+    },
+    {
+      "id": 2,
+      "text": "## 运行链路\n\n浏览器 → Nginx:80 → FastAPI:127.0.0.1:8000\n→ E5 检索与过滤 → DeepSeek 回答 → MySQL 保存历史\n\n## 环境准备\n\n在发布目录创建独立虚拟环境，安装依赖：\n\n```bash\npython3.12 -m venv .venv\nsource .venv/bin/activate\npython -m pip install --no-cache-dir -r requirements-dense.txt\npython -m pip check\n```"
+    },
+    {
+      "id": 3,
+      "text": "从 Linux 旧版复制 .env 和 .mysql/app.env，\n保留在服务器本地，不提交 Git。\n\n模型下载与验证：\n\n```bash\npython check_embeddings.py\npython check_dense_cache.py\n```\n\n## 服务配置\n\n基础配置：\n\n/etc/systemd/system/course-assistant.service\n\n新版覆盖配置：\n\n/etc/systemd/system/course-assistant.service.d/e5-release.conf"
+    },
+    {
+      "id": 4,
+      "text": "覆盖配置指定新版目录、虚拟环境、E5 检索方式和 0.88 门槛。\n服务使用单个 Uvicorn 进程，OMP_NUM_THREADS=1。\n\nNginx 仍代理到 127.0.0.1:8000，无需改变代理端口。\n\n## SELinux 设置\n\n曾为新版 Python 符号链接添加以下持久标签规则："
+    },
+    {
+      "id": 5,
+      "text": "## SELinux 设置\n\n曾为新版 Python 符号链接添加以下持久标签规则：\n\n```bash\nsudo semanage fcontext -a -f l -t bin_t '/home/zz/releases/course-assistant/9b86403/\\.venv/bin/python(3(\\.12)?)?'\nsudo restorecon -v /home/zz/releases/course-assistant/9b86403/.venv/bin/python*\n```"
+    },
+    {
+      "id": 6,
+      "text": "此记录对应 9b86403 路径，规则已存在时无需重复添加。\n以后使用其他发布目录时，需要检查对应路径的标签。\n\n## 已完成验证\n\n- Linux 依赖检查通过。\n- 模型编码及缓存验证通过。\n- 自动化接口测试：28 passed。\n- 8001 端口预览完成。\n- systemd 成功启动新版，监听 8000。\n- 通过 Nginx 的根接口返回 200。\n- 正式入口上传、问答和历史查询返回 200。\n- systemd 日志中确认 E5 加载和资料向量计算。\n\n## 查看运行状态"
+    },
+    {
+      "id": 7,
+      "text": "## 查看运行状态\n\n```bash\nsystemctl status course-assistant --no-pager -l\nsudo journalctl -u course-assistant -n 30 --no-pager\n```\n\n## 回退旧版程序\n\n停用新版覆盖配置，再重新加载并重启："
+    },
+    {
+      "id": 8,
+      "text": "## 回退旧版程序\n\n停用新版覆盖配置，再重新加载并重启：\n\n```bash\nsudo mv /etc/systemd/system/course-assistant.service.d/e5-release.conf /etc/systemd/system/course-assistant.service.d/e5-release.conf.disabled\nsudo systemctl daemon-reload\nsudo systemctl restart course-assistant\n```\n\n原服务配置保留，回退后使用："
+    },
+    {
+      "id": 9,
+      "text": "原服务配置保留，回退后使用：\n\n/home/zz/projects/course-assistant\n\n两个版本共用 Linux 数据库，但各自有 course.txt。\n若新版运行期间更新过资料，回退前应备份并处理当前资料，\n程序回退不会自动同步这部分文件。\n\n## 尚未验证\n\n- 整台虚拟机重启后的恢复。\n- 并发请求与性能压力测试。\n- 真实课程长文档上的检索和回答质量。"
+    }
+  ],
+  "cases": [
+    {
+      "id": "d1",
+      "question": "这个版本使用哪个向量模型，模型文件缓存在哪个目录？",
+      "expected_chunk_ids": [
+        1
+      ],
+      "expected_answer_points": [
+        "intfloat/multilingual-e5-small",
+        "发布目录下的 .cache/huggingface"
+      ]
+    },
+    {
+      "id": "d2",
+      "question": "旧服务上的应用配置和数据库连接配置分别复制哪个文件？",
+      "expected_chunk_ids": [
+        3
+      ],
+      "expected_answer_points": [
+        ".env",
+        ".mysql/app.env",
+        "保留在服务器本地"
+      ]
+    },
+    {
+      "id": "d3",
+      "question": "新版本建好虚拟环境后，用哪个依赖清单安装，用什么命令检查依赖冲突？",
+      "expected_chunk_ids": [
+        2
+      ],
+      "expected_answer_points": [
+        "requirements-dense.txt",
+        "python -m pip check"
+      ]
+    },
+    {
+      "id": "d4",
+      "question": "怎样查看这个服务最近 30 条日志？",
+      "expected_chunk_ids": [
+        7
+      ],
+      "expected_answer_points": [
+        "sudo journalctl -u course-assistant -n 30 --no-pager"
+      ]
+    },
+    {
+      "id": "d5",
+      "question": "浏览器先访问代理的哪个端口，后端为什么还要连接 MySQL，数据库监听端口是多少？",
+      "expected_chunk_ids": [
+        1,
+        2
+      ],
+      "expected_answer_points": [
+        "代理端口 80",
+        "MySQL 保存历史",
+        "端口 3306"
+      ]
+    },
+    {
+      "id": "d6",
+      "question": "这次升级后的正式向量检索门槛是多少？哪个 systemd 覆盖文件控制它？",
+      "expected_chunk_ids": [
+        3,
+        4
+      ],
+      "expected_answer_points": [
+        "0.88",
+        "/etc/systemd/system/course-assistant.service.d/e5-release.conf"
+      ]
+    },
+    {
+      "id": "d7",
+      "question": "降级时怎样停用覆盖配置并应用变更？回到旧程序后，更新过的资料会自动同步吗？",
+      "expected_chunk_ids": [
+        8,
+        9
+      ],
+      "expected_answer_points": [
+        "将覆盖文件改名为 .disabled",
+        "daemon-reload 后重启",
+        "不会自动同步，需备份并处理资料"
+      ]
+    },
+    {
+      "id": "d8",
+      "question": "给新目录的 Python 符号链接应用标签用什么命令？之前的规则已存在还要重复添加吗？",
+      "expected_chunk_ids": [
+        5,
+        6
+      ],
+      "expected_answer_points": [
+        "sudo restorecon -v 对应路径的 python*",
+        "规则已存在时无需重复添加"
+      ]
+    },
+    {
+      "id": "d9",
+      "question": "这个部署用什么域名和证书申请命令来开启 HTTPS？",
+      "expected_chunk_ids": [],
+      "expected_answer_points": [
+        "文档未给出域名或证书申请命令"
+      ]
+    },
+    {
+      "id": "d10",
+      "question": "生产环境十个用户同时提问时，P95 响应时间实测是多少？",
+      "expected_chunk_ids": [],
+      "expected_answer_points": [
+        "文档明确说尚未做并发压力测试",
+        "没有 P95 数值"
+      ]
+    }
+  ]
+}

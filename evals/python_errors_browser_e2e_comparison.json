@@ -1,0 +1,547 @@
+{
+  "source_sha256": "6de5fac62b558b3cbec2b8b27348be63d387ea2e7ed24e25ddb36d77394d6eae",
+  "retrieval_median_ms": {
+    "E5": 29.01,
+    "RRF": 49.35
+  },
+  "scope": "isolated Windows application, real test MySQL and DeepSeek",
+  "model": "deepseek-flash",
+  "settings": {
+    "E5": {
+      "min_score": 0.88
+    },
+    "RRF": {
+      "k": 60,
+      "tfidf_gate": 0.1,
+      "top_k": 3
+    }
+  },
+  "browser": "Edg/158.0.4370.33",
+  "mysql": "8.0.42",
+  "trace": [
+    {
+      "stage": "upload",
+      "http": 200,
+      "characters": 13545,
+      "chunks": 64
+    }
+  ],
+  "cases": [
+    {
+      "id": "x01",
+      "arm": "E5",
+      "category": "direct",
+      "question": "教程按 B、C、D 的顺序抛出异常时，如果把捕获基类 B 的 except 放到最前面，会打印什么？为什么？",
+      "expected": [
+        11
+      ],
+      "displayed": true,
+      "retrieved": [
+        10,
+        11,
+        24
+      ],
+      "citations": [
+        "[10]",
+        "[11]"
+      ],
+      "unmatched_citations": [],
+      "citation_clicks": [
+        {
+          "id": 10,
+          "target": "10",
+          "opened": true
+        },
+        {
+          "id": 11,
+          "target": "11",
+          "opened": true
+        }
+      ],
+      "record": 1,
+      "status": 200,
+      "state": "已保存至历史",
+      "api_snapshot_equal": true,
+      "reload_history": true,
+      "reload_snapshot_equal": true,
+      "reload_history_answer_visible": true,
+      "assessment": "complete",
+      "review": "输出和首个匹配规则都正确，引用 10 和 11 可点击。"
+    },
+    {
+      "id": "x02",
+      "arm": "E5",
+      "category": "multi",
+      "question": "try 中没有抛出异常时，else 会不会运行？如果有一个未被捕获的异常，finally 什么时候执行？",
+      "expected": [
+        18,
+        35
+      ],
+      "displayed": true,
+      "retrieved": [
+        19,
+        8,
+        35
+      ],
+      "citations": [
+        "[8]",
+        "[35]",
+        "[35]"
+      ],
+      "unmatched_citations": [],
+      "citation_clicks": [
+        {
+          "id": 8,
+          "target": "8",
+          "opened": true
+        },
+        {
+          "id": 35,
+          "target": "35",
+          "opened": true
+        },
+        {
+          "id": 35,
+          "target": "35",
+          "opened": true
+        }
+      ],
+      "record": 2,
+      "status": 200,
+      "state": "已保存至历史",
+      "api_snapshot_equal": false,
+      "reload_history": true,
+      "reload_snapshot_equal": true,
+      "reload_history_answer_visible": true,
+      "assessment": "partial",
+      "review": "说明 finally 在未处理异常重新抛出前执行。片段 18 未检索到，未回答 else 是否运行。"
+    },
+    {
+      "id": "x03",
+      "arm": "E5",
+      "category": "multi",
+      "question": "几个并行任务都失败时，怎样把已经收集到的异常一起抛出？如果只想处理其中的 OSError，怎样写处理子句，没匹配的异常又会怎样？",
+      "expected": [
+        44,
+        48
+      ],
+      "displayed": true,
+      "retrieved": [
+        44,
+        8,
+        9
+      ],
+      "citations": [],
+      "unmatched_citations": [],
+      "citation_clicks": [],
+      "record": 3,
+      "status": 200,
+      "state": "已保存至历史",
+      "api_snapshot_equal": false,
+      "reload_history": true,
+      "reload_snapshot_equal": true,
+      "reload_history_answer_visible": true,
+      "assessment": "partial",
+      "review": "说明用 ExceptionGroup 打包异常，未答出组内用 except* 筛选。回答用了不被页面识别的裸编号引用。"
+    },
+    {
+      "id": "x04",
+      "arm": "E5",
+      "category": "multi",
+      "question": "在 except 里，如果想原样重新抛出当前异常该怎么写？如果想改抛 RuntimeError 并明确保留当前异常为原因，又该怎么写？",
+      "expected": [
+        23,
+        28
+      ],
+      "displayed": true,
+      "retrieved": [
+        27,
+        28,
+        24
+      ],
+      "citations": [
+        "[24]",
+        "[27]",
+        "[28]",
+        "[28]"
+      ],
+      "unmatched_citations": [],
+      "citation_clicks": [
+        {
+          "id": 24,
+          "target": "24",
+          "opened": true
+        },
+        {
+          "id": 27,
+          "target": "27",
+          "opened": true
+        },
+        {
+          "id": 28,
+          "target": "28",
+          "opened": true
+        },
+        {
+          "id": 28,
+          "target": "28",
+          "opened": true
+        }
+      ],
+      "record": 4,
+      "status": 200,
+      "state": "已保存至历史",
+      "api_snapshot_equal": false,
+      "reload_history": true,
+      "reload_snapshot_equal": true,
+      "reload_history_answer_visible": true,
+      "assessment": "partial",
+      "review": "给出 raise ... from 的用法。片段 23 未检索到，未答出用不带参数的 raise 原样重抛。"
+    },
+    {
+      "id": "x05",
+      "arm": "E5",
+      "category": "out_of_scope",
+      "question": "在 FastAPI 里，如何写全局异常处理器把自定义异常统一转换成带 HTTP 409 的 JSON 响应？",
+      "expected": [],
+      "displayed": true,
+      "retrieved": [
+        24,
+        53,
+        44
+      ],
+      "citations": [],
+      "unmatched_citations": [],
+      "citation_clicks": [],
+      "record": 5,
+      "status": 200,
+      "state": "已保存至历史",
+      "api_snapshot_equal": true,
+      "reload_history": true,
+      "reload_snapshot_equal": true,
+      "reload_history_answer_visible": true,
+      "assessment": "abstain",
+      "review": "说明资料未覆盖 FastAPI 异常处理器，未提供 HTTP 409 实现。"
+    },
+    {
+      "id": "x06",
+      "arm": "E5",
+      "category": "out_of_scope",
+      "question": "用 pytest 测试 ExceptionGroup 时，怎样断言组里恰好只有一个 OSError，并匹配该子异常的消息？",
+      "expected": [],
+      "displayed": true,
+      "retrieved": [
+        54,
+        15,
+        46
+      ],
+      "citations": [],
+      "unmatched_citations": [],
+      "citation_clicks": [],
+      "record": 6,
+      "status": 200,
+      "state": "已保存至历史",
+      "api_snapshot_equal": true,
+      "reload_history": true,
+      "reload_snapshot_equal": true,
+      "reload_history_answer_visible": true,
+      "assessment": "abstain",
+      "review": "说明资料未覆盖 pytest 断言方法。"
+    },
+    {
+      "id": "x01",
+      "arm": "RRF",
+      "category": "direct",
+      "question": "教程按 B、C、D 的顺序抛出异常时，如果把捕获基类 B 的 except 放到最前面，会打印什么？为什么？",
+      "expected": [
+        11
+      ],
+      "displayed": true,
+      "retrieved": [
+        11,
+        10,
+        15
+      ],
+      "citations": [
+        "[11]",
+        "[11]",
+        "[10]"
+      ],
+      "unmatched_citations": [],
+      "citation_clicks": [
+        {
+          "id": 11,
+          "target": "11",
+          "opened": true
+        },
+        {
+          "id": 11,
+          "target": "11",
+          "opened": true
+        },
+        {
+          "id": 10,
+          "target": "10",
+          "opened": true
+        }
+      ],
+      "record": 7,
+      "status": 200,
+      "state": "已保存至历史",
+      "api_snapshot_equal": true,
+      "reload_history": true,
+      "reload_snapshot_equal": true,
+      "reload_history_answer_visible": true,
+      "assessment": "complete",
+      "review": "输出和首个匹配规则都正确，引用 10 和 11 可点击。"
+    },
+    {
+      "id": "x02",
+      "arm": "RRF",
+      "category": "multi",
+      "question": "try 中没有抛出异常时，else 会不会运行？如果有一个未被捕获的异常，finally 什么时候执行？",
+      "expected": [
+        18,
+        35
+      ],
+      "displayed": true,
+      "retrieved": [
+        35,
+        8,
+        19
+      ],
+      "citations": [],
+      "unmatched_citations": [],
+      "citation_clicks": [],
+      "record": 8,
+      "status": 200,
+      "state": "已保存至历史",
+      "api_snapshot_equal": true,
+      "reload_history": true,
+      "reload_snapshot_equal": true,
+      "reload_history_answer_visible": true,
+      "assessment": "partial",
+      "review": "说明 finally 的顺序，未答出 else 的条件。裸编号没有渲染为可点击引用。"
+    },
+    {
+      "id": "x03",
+      "arm": "RRF",
+      "category": "multi",
+      "question": "几个并行任务都失败时，怎样把已经收集到的异常一起抛出？如果只想处理其中的 OSError，怎样写处理子句，没匹配的异常又会怎样？",
+      "expected": [
+        44,
+        48
+      ],
+      "displayed": true,
+      "retrieved": [
+        44,
+        8,
+        9
+      ],
+      "citations": [
+        "[44]",
+        "[9]",
+        "[8]",
+        "[44]"
+      ],
+      "unmatched_citations": [],
+      "citation_clicks": [
+        {
+          "id": 44,
+          "target": "44",
+          "opened": true
+        },
+        {
+          "id": 9,
+          "target": "9",
+          "opened": true
+        },
+        {
+          "id": 8,
+          "target": "8",
+          "opened": true
+        },
+        {
+          "id": 44,
+          "target": "44",
+          "opened": true
+        }
+      ],
+      "record": 9,
+      "status": 200,
+      "state": "已保存至历史",
+      "api_snapshot_equal": true,
+      "reload_history": true,
+      "reload_snapshot_equal": true,
+      "reload_history_answer_visible": true,
+      "assessment": "incorrect_partial",
+      "review": "说明用 ExceptionGroup 打包，并承认证据缺少组内处理规则，但同时给出普通 except OSError 作为建议，不能匹配组内子异常。"
+    },
+    {
+      "id": "x04",
+      "arm": "RRF",
+      "category": "multi",
+      "question": "在 except 里，如果想原样重新抛出当前异常该怎么写？如果想改抛 RuntimeError 并明确保留当前异常为原因，又该怎么写？",
+      "expected": [
+        23,
+        28
+      ],
+      "displayed": true,
+      "retrieved": [
+        27,
+        32,
+        28
+      ],
+      "citations": [
+        "[28]",
+        "[27]"
+      ],
+      "unmatched_citations": [],
+      "citation_clicks": [
+        {
+          "id": 28,
+          "target": "28",
+          "opened": true
+        },
+        {
+          "id": 27,
+          "target": "27",
+          "opened": true
+        }
+      ],
+      "record": 10,
+      "status": 200,
+      "state": "已保存至历史",
+      "api_snapshot_equal": true,
+      "reload_history": true,
+      "reload_snapshot_equal": true,
+      "reload_history_answer_visible": true,
+      "assessment": "partial",
+      "review": "给出显式异常原因的语法，未答出原样重抛的语法。"
+    },
+    {
+      "id": "x05",
+      "arm": "RRF",
+      "category": "out_of_scope",
+      "question": "在 FastAPI 里，如何写全局异常处理器把自定义异常统一转换成带 HTTP 409 的 JSON 响应？",
+      "expected": [],
+      "displayed": true,
+      "retrieved": [
+        24,
+        9,
+        53
+      ],
+      "citations": [
+        "[9]",
+        "[24]"
+      ],
+      "unmatched_citations": [],
+      "citation_clicks": [
+        {
+          "id": 9,
+          "target": "9",
+          "opened": true
+        },
+        {
+          "id": 24,
+          "target": "24",
+          "opened": true
+        }
+      ],
+      "record": 11,
+      "status": 200,
+      "state": "已保存至历史",
+      "api_snapshot_equal": true,
+      "reload_history": true,
+      "reload_snapshot_equal": true,
+      "reload_history_answer_visible": true,
+      "assessment": "abstain",
+      "review": "明确拒绝提供资料未覆盖的 FastAPI 实现。"
+    },
+    {
+      "id": "x06",
+      "arm": "RRF",
+      "category": "out_of_scope",
+      "question": "用 pytest 测试 ExceptionGroup 时，怎样断言组里恰好只有一个 OSError，并匹配该子异常的消息？",
+      "expected": [],
+      "displayed": true,
+      "retrieved": [
+        54,
+        45,
+        15
+      ],
+      "citations": [
+        "[54]",
+        "[45]"
+      ],
+      "unmatched_citations": [],
+      "citation_clicks": [
+        {
+          "id": 54,
+          "target": "54",
+          "opened": true
+        },
+        {
+          "id": 45,
+          "target": "45",
+          "opened": true
+        }
+      ],
+      "record": 12,
+      "status": 200,
+      "state": "已保存至历史",
+      "api_snapshot_equal": true,
+      "reload_history": true,
+      "reload_snapshot_equal": true,
+      "reload_history_answer_visible": true,
+      "assessment": "abstain",
+      "review": "明确拒绝提供资料未覆盖的 pytest 断言步骤。"
+    }
+  ],
+  "db_records": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+  ],
+  "network_errors": [],
+  "console_errors": [],
+  "source": {
+    "title": "Python 3.14 官方中文教程《错误和异常》",
+    "url": "https://docs.python.org/zh-cn/3.14/tutorial/errors.html"
+  },
+  "method": "同一隔离网页、同一份资料、相同 DeepSeek 提示词和六道预标注问题。先运行 E5，再用 RRF 复跑。模型回答人工判读。检索中位数是在同一台机器上预热后测量，交替运行两种方案，各 30 次检索，耗时不含模型生成。",
+  "production_changed": false,
+  "metrics": {
+    "E5": {
+      "complete_answers": 1,
+      "answerable": 4,
+      "complete_multi": 0,
+      "multi": 3,
+      "complete_labeled_evidence": 1,
+      "correct_abstentions": 2,
+      "unanswerable": 2,
+      "incorrect_instructions": 0,
+      "history_verified": 6
+    },
+    "RRF": {
+      "complete_answers": 1,
+      "answerable": 4,
+      "complete_multi": 0,
+      "multi": 3,
+      "complete_labeled_evidence": 1,
+      "correct_abstentions": 2,
+      "unanswerable": 2,
+      "incorrect_instructions": 1,
+      "history_verified": 6
+    }
+  }
+}

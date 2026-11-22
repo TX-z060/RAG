@@ -1,0 +1,593 @@
+{
+  "algorithm": "rrf",
+  "dataset_sha256": "a9690cfbaa3d2a758a1394fe1053b2ff4053b217f8226630354a75530148daa7",
+  "settings": {
+    "rank_constant": 60,
+    "input_top_k": 3,
+    "output_top_k": 3,
+    "tie_break": "chunk_id_ascending",
+    "sources": [
+      "butterfly_retrieval_dense_no_neighbors_top3.json",
+      "butterfly_retrieval_tfidf_no_neighbors_min_score_0.json"
+    ]
+  },
+  "positive_count": 8,
+  "negative_count": 2,
+  "metrics": {
+    "mean_evidence_recall": 0.9375,
+    "mean_context_precision": 0.375,
+    "answerable_mrr_at_3": 1,
+    "unanswerable_empty_rate": 0
+  },
+  "cases": [
+    {
+      "id": "b1",
+      "question": "学蝶泳前应具备哪些基础能力？",
+      "expected_chunk_ids": [
+        1
+      ],
+      "evidence_recall": 1,
+      "context_precision": 0.3333333333333333,
+      "reciprocal_rank_at_3": 1,
+      "retrieved_chunk_ids": [
+        1,
+        2,
+        13
+      ],
+      "ranked_results": [
+        {
+          "id": 1,
+          "e5_rank": 1,
+          "tfidf_rank": 1,
+          "score": 0.03278688524590164
+        },
+        {
+          "id": 2,
+          "e5_rank": 2,
+          "tfidf_rank": null,
+          "score": 0.016129032258064516
+        },
+        {
+          "id": 13,
+          "e5_rank": null,
+          "tfidf_rank": 2,
+          "score": 0.016129032258064516
+        },
+        {
+          "id": 3,
+          "e5_rank": 3,
+          "tfidf_rank": null,
+          "score": 0.015873015873015872
+        },
+        {
+          "id": 14,
+          "e5_rank": null,
+          "tfidf_rank": 3,
+          "score": 0.015873015873015872
+        }
+      ]
+    },
+    {
+      "id": "b2",
+      "question": "一个划臂周期有几次打腿，分别在什么时候？",
+      "expected_chunk_ids": [
+        6
+      ],
+      "evidence_recall": 1,
+      "context_precision": 0.3333333333333333,
+      "reciprocal_rank_at_3": 1,
+      "retrieved_chunk_ids": [
+        6,
+        8,
+        11
+      ],
+      "ranked_results": [
+        {
+          "id": 6,
+          "e5_rank": 1,
+          "tfidf_rank": 1,
+          "score": 0.03278688524590164
+        },
+        {
+          "id": 8,
+          "e5_rank": 3,
+          "tfidf_rank": 2,
+          "score": 0.03200204813108039
+        },
+        {
+          "id": 11,
+          "e5_rank": 2,
+          "tfidf_rank": null,
+          "score": 0.016129032258064516
+        },
+        {
+          "id": 9,
+          "e5_rank": null,
+          "tfidf_rank": 3,
+          "score": 0.015873015873015872
+        }
+      ]
+    },
+    {
+      "id": "b3",
+      "question": "双手入水的位置和方向有什么要求？",
+      "expected_chunk_ids": [
+        5
+      ],
+      "evidence_recall": 1,
+      "context_precision": 0.3333333333333333,
+      "reciprocal_rank_at_3": 1,
+      "retrieved_chunk_ids": [
+        5,
+        7,
+        14
+      ],
+      "ranked_results": [
+        {
+          "id": 5,
+          "e5_rank": 2,
+          "tfidf_rank": 1,
+          "score": 0.03252247488101534
+        },
+        {
+          "id": 7,
+          "e5_rank": 3,
+          "tfidf_rank": 3,
+          "score": 0.031746031746031744
+        },
+        {
+          "id": 14,
+          "e5_rank": 1,
+          "tfidf_rank": null,
+          "score": 0.01639344262295082
+        },
+        {
+          "id": 6,
+          "e5_rank": null,
+          "tfidf_rank": 2,
+          "score": 0.016129032258064516
+        }
+      ]
+    },
+    {
+      "id": "b4",
+      "question": "教程建议按哪四个阶段学习蝶泳？",
+      "expected_chunk_ids": [
+        8
+      ],
+      "evidence_recall": 1,
+      "context_precision": 0.3333333333333333,
+      "reciprocal_rank_at_3": 1,
+      "retrieved_chunk_ids": [
+        8,
+        1,
+        2
+      ],
+      "ranked_results": [
+        {
+          "id": 8,
+          "e5_rank": 1,
+          "tfidf_rank": 1,
+          "score": 0.03278688524590164
+        },
+        {
+          "id": 1,
+          "e5_rank": null,
+          "tfidf_rank": 2,
+          "score": 0.016129032258064516
+        },
+        {
+          "id": 2,
+          "e5_rank": 2,
+          "tfidf_rank": null,
+          "score": 0.016129032258064516
+        },
+        {
+          "id": 15,
+          "e5_rank": 3,
+          "tfidf_rank": null,
+          "score": 0.015873015873015872
+        },
+        {
+          "id": 16,
+          "e5_rank": null,
+          "tfidf_rank": 3,
+          "score": 0.015873015873015872
+        }
+      ]
+    },
+    {
+      "id": "b5",
+      "question": "泳镜进水后，可以边游边调整吗？",
+      "expected_chunk_ids": [
+        13
+      ],
+      "evidence_recall": 1,
+      "context_precision": 0.3333333333333333,
+      "reciprocal_rank_at_3": 1,
+      "retrieved_chunk_ids": [
+        13,
+        3,
+        6
+      ],
+      "ranked_results": [
+        {
+          "id": 13,
+          "e5_rank": 2,
+          "tfidf_rank": 1,
+          "score": 0.03252247488101534
+        },
+        {
+          "id": 3,
+          "e5_rank": 1,
+          "tfidf_rank": null,
+          "score": 0.01639344262295082
+        },
+        {
+          "id": 6,
+          "e5_rank": null,
+          "tfidf_rank": 2,
+          "score": 0.016129032258064516
+        },
+        {
+          "id": 1,
+          "e5_rank": null,
+          "tfidf_rank": 3,
+          "score": 0.015873015873015872
+        },
+        {
+          "id": 14,
+          "e5_rank": 3,
+          "tfidf_rank": null,
+          "score": 0.015873015873015872
+        }
+      ]
+    },
+    {
+      "id": "b6",
+      "question": "练满固定天数，就一定可以增加距离吗？",
+      "expected_chunk_ids": [
+        11
+      ],
+      "evidence_recall": 1,
+      "context_precision": 0.3333333333333333,
+      "reciprocal_rank_at_3": 1,
+      "retrieved_chunk_ids": [
+        11,
+        7,
+        15
+      ],
+      "ranked_results": [
+        {
+          "id": 11,
+          "e5_rank": 1,
+          "tfidf_rank": 1,
+          "score": 0.03278688524590164
+        },
+        {
+          "id": 7,
+          "e5_rank": 2,
+          "tfidf_rank": null,
+          "score": 0.016129032258064516
+        },
+        {
+          "id": 15,
+          "e5_rank": null,
+          "tfidf_rank": 2,
+          "score": 0.016129032258064516
+        },
+        {
+          "id": 2,
+          "e5_rank": null,
+          "tfidf_rank": 3,
+          "score": 0.015873015873015872
+        },
+        {
+          "id": 14,
+          "e5_rank": 3,
+          "tfidf_rank": null,
+          "score": 0.015873015873015872
+        }
+      ]
+    },
+    {
+      "id": "b7",
+      "question": "四阶段学习顺序是什么？一次练习从热身到结束怎样安排？",
+      "expected_chunk_ids": [
+        8,
+        9
+      ],
+      "evidence_recall": 1,
+      "context_precision": 0.6666666666666666,
+      "reciprocal_rank_at_3": 1,
+      "retrieved_chunk_ids": [
+        8,
+        9,
+        12
+      ],
+      "ranked_results": [
+        {
+          "id": 8,
+          "e5_rank": 1,
+          "tfidf_rank": 1,
+          "score": 0.03278688524590164
+        },
+        {
+          "id": 9,
+          "e5_rank": 2,
+          "tfidf_rank": 2,
+          "score": 0.03225806451612903
+        },
+        {
+          "id": 12,
+          "e5_rank": null,
+          "tfidf_rank": 3,
+          "score": 0.015873015873015872
+        },
+        {
+          "id": 15,
+          "e5_rank": 3,
+          "tfidf_rank": null,
+          "score": 0.015873015873015872
+        }
+      ]
+    },
+    {
+      "id": "b8",
+      "question": "增加距离前检查什么？练后记录什么，拍摄复盘有什么前提？",
+      "expected_chunk_ids": [
+        11,
+        12
+      ],
+      "evidence_recall": 0.5,
+      "context_precision": 0.3333333333333333,
+      "reciprocal_rank_at_3": 1,
+      "retrieved_chunk_ids": [
+        11,
+        15,
+        9
+      ],
+      "ranked_results": [
+        {
+          "id": 11,
+          "e5_rank": 1,
+          "tfidf_rank": 1,
+          "score": 0.03278688524590164
+        },
+        {
+          "id": 15,
+          "e5_rank": 2,
+          "tfidf_rank": 2,
+          "score": 0.03225806451612903
+        },
+        {
+          "id": 9,
+          "e5_rank": null,
+          "tfidf_rank": 3,
+          "score": 0.015873015873015872
+        },
+        {
+          "id": 12,
+          "e5_rank": 3,
+          "tfidf_rank": null,
+          "score": 0.015873015873015872
+        }
+      ]
+    },
+    {
+      "id": "b9",
+      "question": "男子50米蝶泳世界纪录是多少？",
+      "expected_chunk_ids": [],
+      "evidence_recall": null,
+      "context_precision": null,
+      "reciprocal_rank_at_3": null,
+      "retrieved_chunk_ids": [
+        12,
+        3,
+        11
+      ],
+      "ranked_results": [
+        {
+          "id": 12,
+          "e5_rank": 2,
+          "tfidf_rank": 3,
+          "score": 0.03200204813108039
+        },
+        {
+          "id": 3,
+          "e5_rank": 1,
+          "tfidf_rank": null,
+          "score": 0.01639344262295082
+        },
+        {
+          "id": 11,
+          "e5_rank": null,
+          "tfidf_rank": 1,
+          "score": 0.01639344262295082
+        },
+        {
+          "id": 1,
+          "e5_rank": null,
+          "tfidf_rank": 2,
+          "score": 0.016129032258064516
+        },
+        {
+          "id": 2,
+          "e5_rank": 3,
+          "tfidf_rank": null,
+          "score": 0.015873015873015872
+        }
+      ]
+    },
+    {
+      "id": "b10",
+      "question": "蝶泳比赛转身时必须怎样触壁？",
+      "expected_chunk_ids": [],
+      "evidence_recall": null,
+      "context_precision": null,
+      "reciprocal_rank_at_3": null,
+      "retrieved_chunk_ids": [
+        13,
+        2,
+        3
+      ],
+      "ranked_results": [
+        {
+          "id": 13,
+          "e5_rank": 2,
+          "tfidf_rank": 1,
+          "score": 0.03252247488101534
+        },
+        {
+          "id": 2,
+          "e5_rank": 3,
+          "tfidf_rank": 3,
+          "score": 0.031746031746031744
+        },
+        {
+          "id": 3,
+          "e5_rank": 1,
+          "tfidf_rank": null,
+          "score": 0.01639344262295082
+        },
+        {
+          "id": 15,
+          "e5_rank": null,
+          "tfidf_rank": 2,
+          "score": 0.016129032258064516
+        }
+      ]
+    }
+  ],
+  "tie_break_sensitivity": {
+    "tie_break": "e5_rank_ascending_then_chunk_id_ascending",
+    "metrics": {
+      "mean_evidence_recall": 1,
+      "mean_context_precision": 0.41666666666666663,
+      "answerable_mrr_at_3": 1,
+      "unanswerable_empty_rate": 0
+    },
+    "per_case": [
+      {
+        "id": "b1",
+        "ids": [
+          1,
+          2,
+          13
+        ],
+        "answerable": true,
+        "recall": 1,
+        "precision": 0.3333333333333333,
+        "rr": 1
+      },
+      {
+        "id": "b2",
+        "ids": [
+          6,
+          8,
+          11
+        ],
+        "answerable": true,
+        "recall": 1,
+        "precision": 0.3333333333333333,
+        "rr": 1
+      },
+      {
+        "id": "b3",
+        "ids": [
+          5,
+          7,
+          14
+        ],
+        "answerable": true,
+        "recall": 1,
+        "precision": 0.3333333333333333,
+        "rr": 1
+      },
+      {
+        "id": "b4",
+        "ids": [
+          8,
+          2,
+          1
+        ],
+        "answerable": true,
+        "recall": 1,
+        "precision": 0.3333333333333333,
+        "rr": 1
+      },
+      {
+        "id": "b5",
+        "ids": [
+          13,
+          3,
+          6
+        ],
+        "answerable": true,
+        "recall": 1,
+        "precision": 0.3333333333333333,
+        "rr": 1
+      },
+      {
+        "id": "b6",
+        "ids": [
+          11,
+          7,
+          15
+        ],
+        "answerable": true,
+        "recall": 1,
+        "precision": 0.3333333333333333,
+        "rr": 1
+      },
+      {
+        "id": "b7",
+        "ids": [
+          8,
+          9,
+          15
+        ],
+        "answerable": true,
+        "recall": 1,
+        "precision": 0.6666666666666666,
+        "rr": 1
+      },
+      {
+        "id": "b8",
+        "ids": [
+          11,
+          15,
+          12
+        ],
+        "answerable": true,
+        "recall": 1,
+        "precision": 0.6666666666666666,
+        "rr": 1
+      },
+      {
+        "id": "b9",
+        "ids": [
+          12,
+          3,
+          11
+        ],
+        "answerable": false,
+        "recall": null,
+        "precision": null,
+        "rr": null
+      },
+      {
+        "id": "b10",
+        "ids": [
+          13,
+          2,
+          3
+        ],
+        "answerable": false,
+        "recall": null,
+        "precision": null,
+        "rr": null
+      }
+    ]
+  }
+}

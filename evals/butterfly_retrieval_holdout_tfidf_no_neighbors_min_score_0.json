@@ -1,0 +1,294 @@
+{
+  "algorithm": "tfidf",
+  "settings": {
+    "analyzer": "char",
+    "ngram_range": [
+      1,
+      3
+    ],
+    "top_k": 3,
+    "neighbor_window": 0,
+    "score_filter": "> 0"
+  },
+  "dataset_sha256": "d9b14429a07081b2187fe929a9bd09834beb8a29c634ecc419800a4ae62da767",
+  "positive_count": 8,
+  "negative_count": 2,
+  "metrics": {
+    "answerable_mrr_at_3": 1.0,
+    "mean_evidence_recall": 0.9375,
+    "mean_context_precision": 0.4583333333333333,
+    "unanswerable_empty_rate": 0.0
+  },
+  "cases": [
+    {
+      "id": "h1",
+      "question": "海豚腿练习时，脚踝和膝盖应保持什么状态？",
+      "expected_chunk_ids": [
+        4
+      ],
+      "reciprocal_rank_at_3": 1.0,
+      "retrieved_chunk_ids": [
+        4,
+        8,
+        9
+      ],
+      "ranked_results": [
+        {
+          "id": 4,
+          "score": 0.28849152908532905
+        },
+        {
+          "id": 9,
+          "score": 0.08257504776962038
+        },
+        {
+          "id": 8,
+          "score": 0.07416893549456013
+        }
+      ]
+    },
+    {
+      "id": "h2",
+      "question": "手掌和前臂刚抓到水后，应该把水往哪边推？",
+      "expected_chunk_ids": [
+        5
+      ],
+      "reciprocal_rank_at_3": 1.0,
+      "retrieved_chunk_ids": [
+        5,
+        6,
+        13
+      ],
+      "ranked_results": [
+        {
+          "id": 5,
+          "score": 0.20586751188153474
+        },
+        {
+          "id": 13,
+          "score": 0.08127123318813068
+        },
+        {
+          "id": 6,
+          "score": 0.07819931103697363
+        }
+      ]
+    },
+    {
+      "id": "h3",
+      "question": "嘴巴吸到气以后，头应该怎么处理？",
+      "expected_chunk_ids": [
+        7
+      ],
+      "reciprocal_rank_at_3": 1.0,
+      "retrieved_chunk_ids": [
+        7,
+        10,
+        13
+      ],
+      "ranked_results": [
+        {
+          "id": 7,
+          "score": 0.12459942844966108
+        },
+        {
+          "id": 13,
+          "score": 0.08804518055434474
+        },
+        {
+          "id": 10,
+          "score": 0.07024350962352383
+        }
+      ]
+    },
+    {
+      "id": "h4",
+      "question": "跟教练反馈动作卡住时，怎样描述问题才便于他指导？",
+      "expected_chunk_ids": [
+        15
+      ],
+      "reciprocal_rank_at_3": 1.0,
+      "retrieved_chunk_ids": [
+        9,
+        10,
+        15
+      ],
+      "ranked_results": [
+        {
+          "id": 15,
+          "score": 0.1651761926553339
+        },
+        {
+          "id": 9,
+          "score": 0.07325124845216463
+        },
+        {
+          "id": 10,
+          "score": 0.06487610701334859
+        }
+      ]
+    },
+    {
+      "id": "h5",
+      "question": "下水前应该了解场馆哪些安全信息？练蝶泳前为什么还要留意泳道是否拥挤？",
+      "expected_chunk_ids": [
+        1,
+        13
+      ],
+      "reciprocal_rank_at_3": 1.0,
+      "retrieved_chunk_ids": [
+        1,
+        10,
+        13
+      ],
+      "ranked_results": [
+        {
+          "id": 13,
+          "score": 0.2082361317066852
+        },
+        {
+          "id": 1,
+          "score": 0.1465748680558665
+        },
+        {
+          "id": 10,
+          "score": 0.06646154728724707
+        }
+      ]
+    },
+    {
+      "id": "h6",
+      "question": "入门练习结束时可以怎样逐渐恢复？下一次练习宜从什么动作开始？",
+      "expected_chunk_ids": [
+        9,
+        12
+      ],
+      "reciprocal_rank_at_3": 1.0,
+      "retrieved_chunk_ids": [
+        9,
+        12,
+        15
+      ],
+      "ranked_results": [
+        {
+          "id": 9,
+          "score": 0.20902485091652134
+        },
+        {
+          "id": 12,
+          "score": 0.1664394110595579
+        },
+        {
+          "id": 15,
+          "score": 0.1092147501743203
+        }
+      ]
+    },
+    {
+      "id": "h7",
+      "question": "手臂推水到什么位置结束？第二次下打应和哪个动作阶段衔接？",
+      "expected_chunk_ids": [
+        5,
+        6
+      ],
+      "reciprocal_rank_at_3": 1.0,
+      "retrieved_chunk_ids": [
+        2,
+        6,
+        8
+      ],
+      "ranked_results": [
+        {
+          "id": 6,
+          "score": 0.2892711703029215
+        },
+        {
+          "id": 8,
+          "score": 0.22655437368189224
+        },
+        {
+          "id": 2,
+          "score": 0.12376520687770859
+        }
+      ]
+    },
+    {
+      "id": "h8",
+      "question": "练海豚腿时双臂前伸困难，可以把手放在哪里？第三阶段先连做几个完整周期？",
+      "expected_chunk_ids": [
+        4,
+        8
+      ],
+      "reciprocal_rank_at_3": 1.0,
+      "retrieved_chunk_ids": [
+        4,
+        8,
+        9
+      ],
+      "ranked_results": [
+        {
+          "id": 8,
+          "score": 0.21252069735213228
+        },
+        {
+          "id": 4,
+          "score": 0.16475771531289166
+        },
+        {
+          "id": 9,
+          "score": 0.09353834849842953
+        }
+      ]
+    },
+    {
+      "id": "h9",
+      "question": "参加蝶泳比赛可以戴脚蹼吗？",
+      "expected_chunk_ids": [],
+      "reciprocal_rank_at_3": null,
+      "retrieved_chunk_ids": [
+        1,
+        13,
+        15
+      ],
+      "ranked_results": [
+        {
+          "id": 13,
+          "score": 0.13563037814253576
+        },
+        {
+          "id": 15,
+          "score": 0.08530513196475216
+        },
+        {
+          "id": 1,
+          "score": 0.04888918992607164
+        }
+      ]
+    },
+    {
+      "id": "h10",
+      "question": "蝶泳入门时该买多长的脚蹼？请给出厘米数。",
+      "expected_chunk_ids": [],
+      "reciprocal_rank_at_3": null,
+      "retrieved_chunk_ids": [
+        1,
+        12,
+        13
+      ],
+      "ranked_results": [
+        {
+          "id": 13,
+          "score": 0.10854631122310171
+        },
+        {
+          "id": 12,
+          "score": 0.09834886371451589
+        },
+        {
+          "id": 1,
+          "score": 0.07385559156083624
+        }
+      ]
+    }
+  ]
+}

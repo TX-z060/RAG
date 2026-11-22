@@ -1,0 +1,292 @@
+{
+  "algorithm": "tfidf",
+  "settings": {
+    "analyzer": "char",
+    "ngram_range": [
+      1,
+      3
+    ],
+    "top_k": 3,
+    "neighbor_window": 0,
+    "score_filter": "> 0"
+  },
+  "dataset_sha256": "a9690cfbaa3d2a758a1394fe1053b2ff4053b217f8226630354a75530148daa7",
+  "positive_count": 8,
+  "negative_count": 2,
+  "metrics": {
+    "answerable_mrr_at_3": 1.0,
+    "mean_evidence_recall": 0.9375,
+    "mean_context_precision": 0.375,
+    "unanswerable_empty_rate": 0.0
+  },
+  "cases": [
+    {
+      "id": "b1",
+      "question": "学蝶泳前应具备哪些基础能力？",
+      "expected_chunk_ids": [
+        1
+      ],
+      "reciprocal_rank_at_3": 1.0,
+      "retrieved_chunk_ids": [
+        1,
+        13,
+        14
+      ],
+      "ranked_results": [
+        {
+          "id": 1,
+          "score": 0.22746345875872107
+        },
+        {
+          "id": 13,
+          "score": 0.08930892746127045
+        },
+        {
+          "id": 14,
+          "score": 0.050080105902187026
+        }
+      ]
+    },
+    {
+      "id": "b2",
+      "question": "一个划臂周期有几次打腿，分别在什么时候？",
+      "expected_chunk_ids": [
+        6
+      ],
+      "reciprocal_rank_at_3": 1.0,
+      "retrieved_chunk_ids": [
+        6,
+        8,
+        9
+      ],
+      "ranked_results": [
+        {
+          "id": 6,
+          "score": 0.19983726306920974
+        },
+        {
+          "id": 8,
+          "score": 0.09598191167804034
+        },
+        {
+          "id": 9,
+          "score": 0.0941452424059084
+        }
+      ]
+    },
+    {
+      "id": "b3",
+      "question": "双手入水的位置和方向有什么要求？",
+      "expected_chunk_ids": [
+        5
+      ],
+      "reciprocal_rank_at_3": 1.0,
+      "retrieved_chunk_ids": [
+        5,
+        6,
+        7
+      ],
+      "ranked_results": [
+        {
+          "id": 5,
+          "score": 0.13451208152810595
+        },
+        {
+          "id": 6,
+          "score": 0.08164890541718645
+        },
+        {
+          "id": 7,
+          "score": 0.07318069977604201
+        }
+      ]
+    },
+    {
+      "id": "b4",
+      "question": "教程建议按哪四个阶段学习蝶泳？",
+      "expected_chunk_ids": [
+        8
+      ],
+      "reciprocal_rank_at_3": 1.0,
+      "retrieved_chunk_ids": [
+        1,
+        8,
+        16
+      ],
+      "ranked_results": [
+        {
+          "id": 8,
+          "score": 0.16579785362941976
+        },
+        {
+          "id": 1,
+          "score": 0.1109194945579462
+        },
+        {
+          "id": 16,
+          "score": 0.08271580315978465
+        }
+      ]
+    },
+    {
+      "id": "b5",
+      "question": "泳镜进水后，可以边游边调整吗？",
+      "expected_chunk_ids": [
+        13
+      ],
+      "reciprocal_rank_at_3": 1.0,
+      "retrieved_chunk_ids": [
+        1,
+        6,
+        13
+      ],
+      "ranked_results": [
+        {
+          "id": 13,
+          "score": 0.18048385694906516
+        },
+        {
+          "id": 6,
+          "score": 0.08507858057213066
+        },
+        {
+          "id": 1,
+          "score": 0.07810667961854192
+        }
+      ]
+    },
+    {
+      "id": "b6",
+      "question": "练满固定天数，就一定可以增加距离吗？",
+      "expected_chunk_ids": [
+        11
+      ],
+      "reciprocal_rank_at_3": 1.0,
+      "retrieved_chunk_ids": [
+        2,
+        11,
+        15
+      ],
+      "ranked_results": [
+        {
+          "id": 11,
+          "score": 0.26778181933627865
+        },
+        {
+          "id": 15,
+          "score": 0.10233978874762989
+        },
+        {
+          "id": 2,
+          "score": 0.07130030610991493
+        }
+      ]
+    },
+    {
+      "id": "b7",
+      "question": "四阶段学习顺序是什么？一次练习从热身到结束怎样安排？",
+      "expected_chunk_ids": [
+        8,
+        9
+      ],
+      "reciprocal_rank_at_3": 1.0,
+      "retrieved_chunk_ids": [
+        8,
+        9,
+        12
+      ],
+      "ranked_results": [
+        {
+          "id": 8,
+          "score": 0.1756305856711012
+        },
+        {
+          "id": 9,
+          "score": 0.13014842659969192
+        },
+        {
+          "id": 12,
+          "score": 0.09020854245698283
+        }
+      ]
+    },
+    {
+      "id": "b8",
+      "question": "增加距离前检查什么？练后记录什么，拍摄复盘有什么前提？",
+      "expected_chunk_ids": [
+        11,
+        12
+      ],
+      "reciprocal_rank_at_3": 1.0,
+      "retrieved_chunk_ids": [
+        9,
+        11,
+        15
+      ],
+      "ranked_results": [
+        {
+          "id": 11,
+          "score": 0.1969053135353406
+        },
+        {
+          "id": 15,
+          "score": 0.1079081469161047
+        },
+        {
+          "id": 9,
+          "score": 0.099356871410694
+        }
+      ]
+    },
+    {
+      "id": "b9",
+      "question": "男子50米蝶泳世界纪录是多少？",
+      "expected_chunk_ids": [],
+      "reciprocal_rank_at_3": null,
+      "retrieved_chunk_ids": [
+        1,
+        11,
+        12
+      ],
+      "ranked_results": [
+        {
+          "id": 11,
+          "score": 0.0751683839557114
+        },
+        {
+          "id": 1,
+          "score": 0.07140110761935381
+        },
+        {
+          "id": 12,
+          "score": 0.06082211818045853
+        }
+      ]
+    },
+    {
+      "id": "b10",
+      "question": "蝶泳比赛转身时必须怎样触壁？",
+      "expected_chunk_ids": [],
+      "reciprocal_rank_at_3": null,
+      "retrieved_chunk_ids": [
+        2,
+        13,
+        15
+      ],
+      "ranked_results": [
+        {
+          "id": 13,
+          "score": 0.09175348709009261
+        },
+        {
+          "id": 15,
+          "score": 0.07148689401372853
+        },
+        {
+          "id": 2,
+          "score": 0.05545138590338806
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,239 @@
+{
+  "retrieval_median_ms": {
+    "E5": 23.01,
+    "RRF": 31.37
+  },
+  "scope": "isolated Windows application, real test MySQL and DeepSeek",
+  "model": "deepseek-flash",
+  "retriever": "rrf",
+  "rrf_k": 60,
+  "tfidf_gate": 0.1,
+  "top_k": 3,
+  "browser": "Edg/158.0.4370.33",
+  "mysql": "8.0.42",
+  "trace": [
+    {
+      "stage": "upload",
+      "http": 200,
+      "characters": 4035,
+      "chunks": 19
+    }
+  ],
+  "cases": [
+    {
+      "id": "p04",
+      "category": "direct",
+      "question": "旧版本的 requests 要怎么指定安装？",
+      "expected": [
+        9
+      ],
+      "displayed": true,
+      "retrieved": [
+        9,
+        11,
+        8
+      ],
+      "citations": [
+        "[9]"
+      ],
+      "citation_clicks": [
+        {
+          "id": 9,
+          "target": "9",
+          "opened": true
+        }
+      ],
+      "record": 1,
+      "status": 200,
+      "state": "已保存至历史",
+      "api_snapshot_equal": true,
+      "reload_history": true,
+      "reload_snapshot_equal": true,
+      "reload_history_answer_visible": true,
+      "baseline_retrieved": [
+        9,
+        8
+      ],
+      "baseline_citations": [
+        "[9]"
+      ],
+      "review": "两组均正确说明如何安装指定版本，引用片段 9。"
+    },
+    {
+      "id": "p05",
+      "category": "multi",
+      "question": "怎样建一个名为 tutorial-env 的虚拟环境，然后在 macOS 上进入这个环境？",
+      "expected": [
+        3,
+        4
+      ],
+      "displayed": true,
+      "retrieved": [
+        3,
+        4,
+        16
+      ],
+      "citations": [
+        "[3]",
+        "[4]"
+      ],
+      "citation_clicks": [
+        {
+          "id": 3,
+          "target": "3",
+          "opened": true
+        },
+        {
+          "id": 4,
+          "target": "4",
+          "opened": true
+        }
+      ],
+      "record": 2,
+      "status": 200,
+      "state": "已保存至历史",
+      "api_snapshot_equal": true,
+      "reload_history": true,
+      "reload_snapshot_equal": true,
+      "reload_history_answer_visible": true,
+      "baseline_retrieved": [
+        3,
+        4,
+        16
+      ],
+      "baseline_citations": [
+        "[3]",
+        "[4]"
+      ],
+      "review": "两组均完整回答创建与激活，引用片段 3 和 4。"
+    },
+    {
+      "id": "p07",
+      "category": "multi",
+      "question": "怎样把当前包版本导出到 requirements.txt，另一台机器要执行什么命令安装？",
+      "expected": [
+        16,
+        17
+      ],
+      "displayed": true,
+      "retrieved": [
+        16,
+        15,
+        17
+      ],
+      "citations": [
+        "[16]",
+        "[15]",
+        "[17]",
+        "[16]"
+      ],
+      "citation_clicks": [
+        {
+          "id": 16,
+          "target": "16",
+          "opened": true
+        },
+        {
+          "id": 15,
+          "target": "15",
+          "opened": true
+        },
+        {
+          "id": 17,
+          "target": "17",
+          "opened": true
+        },
+        {
+          "id": 16,
+          "target": "16",
+          "opened": true
+        }
+      ],
+      "record": 3,
+      "status": 200,
+      "state": "已保存至历史",
+      "api_snapshot_equal": true,
+      "reload_history": true,
+      "reload_snapshot_equal": true,
+      "reload_history_answer_visible": true,
+      "baseline_retrieved": [
+        16,
+        15,
+        9
+      ],
+      "baseline_citations": [
+        "[16]",
+        "[16]",
+        "[15]"
+      ],
+      "review": "两组都给出正确命令。只有 RRF 检索并引用了直接给出完整安装命令的片段 17。"
+    },
+    {
+      "id": "p11",
+      "category": "out_of_scope",
+      "question": "如何让 pip 在安装 requirements.txt 时校验每个依赖的哈希值？",
+      "expected": [],
+      "displayed": true,
+      "retrieved": [
+        16,
+        15,
+        17
+      ],
+      "citations": [
+        "[15]",
+        "[16]",
+        "[17]"
+      ],
+      "citation_clicks": [
+        {
+          "id": 15,
+          "target": "15",
+          "opened": true
+        },
+        {
+          "id": 16,
+          "target": "16",
+          "opened": true
+        },
+        {
+          "id": 17,
+          "target": "17",
+          "opened": true
+        }
+      ],
+      "record": 4,
+      "status": 200,
+      "state": "已保存至历史",
+      "api_snapshot_equal": true,
+      "reload_history": true,
+      "reload_snapshot_equal": true,
+      "reload_history_answer_visible": true,
+      "baseline_retrieved": [
+        16,
+        15,
+        9
+      ],
+      "baseline_citations": [
+        "[15]",
+        "[16]",
+        "[9]"
+      ],
+      "review": "两组均说明资料没有哈希校验方法，未给操作步骤。两组均提及原文未出现的参数名称。"
+    }
+  ],
+  "db_records": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "network_errors": [],
+  "console_errors": [],
+  "source": {
+    "title": "Python 官方教程《虚拟环境和包》",
+    "url": "https://docs.python.org/zh-cn/3/tutorial/venv.html"
+  },
+  "baseline_report": "python_venv_browser_e2e.json",
+  "method": "在单独的 Windows 临时应用进程里替换检索入口，复用现有页面、问答提示词、DeepSeek 和 MySQL 持久化逻辑。检索耗时用同一进程预热后在四题上各重复五轮，交替运行两种方案，统计中位数。",
+  "production_changed": false
+}

@@ -1,0 +1,280 @@
+{
+  "source": {
+    "title": "Python 官方教程 · 虚拟环境和包",
+    "url": "https://docs.python.org/zh-cn/3/tutorial/venv.html",
+    "html_sha256": "73865760717374ed27c67151fea491da79d7676c5a6c9a6e790a002f37cc2fdf",
+    "content": "Chapter body extracted from HTML with headings, paragraphs and code blocks separated by newlines.",
+    "chunk_count": 19,
+    "chunk_size": 300,
+    "chunk_overlap": 50
+  },
+  "dataset_sha256": "9599a7fb768769ad6ef1e3737bfd440ad41707c659f56d911887f80c6f9c7f95",
+  "retrieval_report": "python_venv_retrieval_holdout_comparison.json",
+  "method": "人工逐题核对，仅使用各用例指定的片段。证据完整时才放行。人工标注用作后续自动评测的标准。本轮未执行模型对照。",
+  "counts": {
+    "original": 14,
+    "original_sufficient": 8,
+    "original_insufficient": 6,
+    "partial_controls": 4
+  },
+  "cases": [
+    {
+      "id": "p01",
+      "question": "某个应用升级了依赖，另一个程序还要用旧版，如何让它们各自使用需要的版本？",
+      "retrieved_ids": [
+        10,
+        2,
+        1
+      ],
+      "expected_sufficient": true,
+      "supporting_ids": [
+        2
+      ],
+      "review": "分别创建环境，依赖升级只影响对应项目的环境。"
+    },
+    {
+      "id": "p02",
+      "question": "创建环境时我用的是 python3.12，新环境会采用哪个 Python 版本？",
+      "retrieved_ids": [
+        2,
+        8,
+        6
+      ],
+      "expected_sufficient": true,
+      "supporting_ids": [
+        2
+      ],
+      "review": "新环境采用运行创建命令时的 Python 3.12。"
+    },
+    {
+      "id": "p03",
+      "question": "激活后，命令行提示符和 python 命令分别有什么变化？",
+      "retrieved_ids": [
+        4,
+        6,
+        10
+      ],
+      "expected_sufficient": true,
+      "supporting_ids": [
+        4
+      ],
+      "review": "提示符显示当前环境，python 命令改为使用环境里的解释器。"
+    },
+    {
+      "id": "p04",
+      "question": "旧版本的 requests 要怎么指定安装？",
+      "retrieved_ids": [
+        9,
+        11,
+        8
+      ],
+      "expected_sufficient": true,
+      "supporting_ids": [
+        9
+      ],
+      "review": "安装时用包名、双等号和版本号固定 requests 的版本。"
+    },
+    {
+      "id": "p05",
+      "question": "怎样建一个名为 tutorial-env 的虚拟环境，然后在 macOS 上进入这个环境？",
+      "retrieved_ids": [
+        3,
+        4,
+        16
+      ],
+      "expected_sufficient": true,
+      "supporting_ids": [
+        3,
+        4
+      ],
+      "review": "片段 3 给出创建命令，片段 4 给出 macOS 上 bash 的激活命令。"
+    },
+    {
+      "id": "p06",
+      "question": "怎么固定安装旧版 requests，之后又怎样把它升级到最新版本？请给出两条命令。",
+      "retrieved_ids": [
+        10,
+        9,
+        11
+      ],
+      "expected_sufficient": true,
+      "supporting_ids": [
+        9,
+        11
+      ],
+      "review": "片段 9 给出指定旧版的完整命令，片段 11 给出升级 requests 的完整命令。片段 10 也给出通用升级选项。"
+    },
+    {
+      "id": "p07",
+      "question": "怎样把当前包版本导出到 requirements.txt，另一台机器要执行什么命令安装？",
+      "retrieved_ids": [
+        16,
+        15,
+        17
+      ],
+      "expected_sufficient": true,
+      "supporting_ids": [
+        16,
+        17
+      ],
+      "review": "片段 16 给出导出依赖文件的命令，片段 17 给出用文件安装的完整命令。片段 16 的文字也提到安装选项。"
+    },
+    {
+      "id": "p08",
+      "question": "激活后 PYTHONPATH 会不会自动改变？当前的 python 命令会指向哪里？",
+      "retrieved_ids": [
+        6,
+        4,
+        19
+      ],
+      "expected_sufficient": true,
+      "supporting_ids": [
+        4,
+        6
+      ],
+      "review": "片段 6 说明激活时 PYTHONPATH 不变，片段 4 说明 python 命令将使用环境中的版本。"
+    },
+    {
+      "id": "p09",
+      "question": "Python 虚拟环境里怎么安装支持 CUDA 12.4 的 PyTorch？",
+      "retrieved_ids": [
+        2,
+        1,
+        6
+      ],
+      "expected_sufficient": false,
+      "supporting_ids": [],
+      "review": "片段解释虚拟环境和路径，缺少指定 CUDA 版本安装 PyTorch 的方法。"
+    },
+    {
+      "id": "p10",
+      "question": "pip install 怎么配置公司代理并为代理设置用户名和密码？",
+      "retrieved_ids": [
+        7,
+        11,
+        6
+      ],
+      "expected_sufficient": false,
+      "supporting_ids": [],
+      "review": "片段介绍包的安装来源和升级命令，缺少代理地址和认证的配置。"
+    },
+    {
+      "id": "p11",
+      "question": "如何让 pip 在安装 requirements.txt 时校验每个依赖的哈希值？",
+      "retrieved_ids": [
+        16,
+        15,
+        17
+      ],
+      "expected_sufficient": false,
+      "supporting_ids": [],
+      "review": "片段给出依赖列表的导出和安装，缺少登记并强制校验哈希的方法。"
+    },
+    {
+      "id": "p12",
+      "question": "在 Windows PowerShell 里激活 Python 虚拟环境被执行策略阻止时，怎样修改策略？",
+      "retrieved_ids": [
+        6,
+        4,
+        3
+      ],
+      "expected_sufficient": false,
+      "supporting_ids": [],
+      "review": "片段给出 Windows 激活步骤，缺少遇到 PowerShell 执行策略限制时的处理步骤。"
+    },
+    {
+      "id": "p13",
+      "question": "维护 PyPI 上的包时，如何给发布账号启用双因素认证？",
+      "retrieved_ids": [
+        9,
+        7,
+        12
+      ],
+      "expected_sufficient": false,
+      "supporting_ids": [],
+      "review": "片段介绍 PyPI 作为安装来源和包安装，缺少发布账号的双因素认证设置。"
+    },
+    {
+      "id": "p14",
+      "question": "能否把已经创建的 venv 移动到另一台电脑并修复脚本里的绝对路径？",
+      "retrieved_ids": [
+        3,
+        4,
+        2
+      ],
+      "expected_sufficient": false,
+      "supporting_ids": [],
+      "review": "片段说明环境创建和激活，缺少跨机器迁移的可行性、约束和绝对路径的恢复方法。"
+    }
+  ],
+  "partial_controls": [
+    {
+      "id": "p05_partial",
+      "original_case": "p05",
+      "question": "怎样建一个名为 tutorial-env 的虚拟环境，然后在 macOS 上进入这个环境？",
+      "retrieved_ids": [
+        3,
+        16
+      ],
+      "removed_ids": [
+        4
+      ],
+      "expected_sufficient": false,
+      "partial_support_ids": [
+        3
+      ],
+      "review": "还可创建虚拟环境，缺少 macOS 激活命令。"
+    },
+    {
+      "id": "p06_partial",
+      "original_case": "p06",
+      "question": "怎么固定安装旧版 requests，之后又怎样把它升级到最新版本？请给出两条命令。",
+      "retrieved_ids": [
+        9
+      ],
+      "removed_ids": [
+        10,
+        11
+      ],
+      "expected_sufficient": false,
+      "partial_support_ids": [
+        9
+      ],
+      "review": "还可指定旧版，完整升级命令及可用的通用升级选项均已移除。"
+    },
+    {
+      "id": "p07_partial",
+      "original_case": "p07",
+      "question": "怎样把当前包版本导出到 requirements.txt，另一台机器要执行什么命令安装？",
+      "retrieved_ids": [
+        17
+      ],
+      "removed_ids": [
+        15,
+        16
+      ],
+      "expected_sufficient": false,
+      "partial_support_ids": [
+        17
+      ],
+      "review": "还可从依赖文件安装，缺少生成该文件的方法。"
+    },
+    {
+      "id": "p08_partial",
+      "original_case": "p08",
+      "question": "激活后 PYTHONPATH 会不会自动改变？当前的 python 命令会指向哪里？",
+      "retrieved_ids": [
+        4,
+        19
+      ],
+      "removed_ids": [
+        6
+      ],
+      "expected_sufficient": false,
+      "partial_support_ids": [
+        4
+      ],
+      "review": "还可说明激活后 python 指向哪里，缺少 PYTHONPATH 是否变化的依据。"
+    }
+  ]
+}
