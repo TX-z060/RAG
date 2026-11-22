@@ -58,6 +58,12 @@
 
 \- db.py：数据库连接、保存和查询函数。
 
+\- dense\_retrieval.py：E5 向量检索与资料向量缓存。
+
+\- hybrid\_retrieval.py：RRF 混合检索，融合 E5 与 TF-IDF 排名。
+
+\- evidence\_gate.py：生成前的证据充分性门禁。
+
 \- index.html：网页界面。
 
 \- course.txt：当前上传的资料。
@@ -208,7 +214,7 @@ cd 'D:\\电子实训\\git练习\\课程资料问答助手'
 
 ```powershell
 
-.\\.venv\\Scripts\\python.exe -m pytest test\_api.py test\_history.py -q
+.\\.venv\\Scripts\\python.exe -m pytest test\_api.py test\_history.py test\_dense\_api.py test\_dense\_upload.py test\_rrf.py -q
 
 ```
 
@@ -217,6 +223,46 @@ cd 'D:\\电子实训\\git练习\\课程资料问答助手'
 接口测试使用模型和数据库替身。
 
 检索回归测试使用固定资料，执行真实的检索逻辑。
+
+
+
+\## 检索方式与门禁配置
+
+
+
+问答检索方式由环境变量 RAG\_RETRIEVER 决定，默认 tfidf，可选 dense 或 rrf。
+
+
+
+\- tfidf：字符级 TF-IDF，补充相邻片段。
+
+\- dense：E5 向量检索，门槛由 RAG\_DENSE\_MIN\_SCORE 控制，默认 0.88。
+
+\- rrf：融合 E5 与 TF-IDF 的排名，k 由 RAG\_RRF\_K 控制，默认 60；TF-IDF 最佳分门槛由 RAG\_RRF\_TFIDF\_GATE 控制，默认 0.1。低于门槛时返回空结果，避免无答案误召回。
+
+
+
+RAG\_EVIDENCE\_GATE 设为 true 时启用证据门禁：generate 前先核对片段是否覆盖问题要点，不足则返回固定拒答，不调用模型也不写入历史。门禁调用失败或输出无法解析时自动放行。默认关闭，保持原有行为。
+
+
+
+\## 生产链路 E2E 验证
+
+
+
+e2e\_verify.py 用独立进程启动三组服务，走真实的上传、检索、DeepSeek 和 MySQL 链路，在蝶泳 holdout 集上对比 dense、rrf 和 rrf\_gate：
+
+
+
+```powershell
+
+.\\.venv\\Scripts\\python.exe e2e\_verify.py
+
+```
+
+
+
+每组使用独立端口，通过环境变量注入配置。脚本会临时替换 course.txt，结束时自动恢复。结果保存到 evals/production\_e2e\_comparison.json，包含证据召回率、MRR@3、正确拒答数和历史校验。三组对照中，rrf 将证据召回率从 87.5% 提升到 100%，rrf\_gate 进一步把无答案题的正确拒答从 1/2 提升到 2/2。门禁拒答不写入历史，因此该组历史校验的可验证条数为 8。
 
 
 

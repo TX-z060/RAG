@@ -9,6 +9,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter #尝试按�
 from sklearn.feature_extraction.text import TfidfVectorizer #把文字转换成TF-IDF数字特征
 from sklearn.metrics.pairwise import cosine_similarity #计算这些特征的相似度
 from db import save_qa_history, list_qa_history, get_qa_history
+from evidence_gate import INSUFFICIENT_ANSWER, check_evidence
 from pymysql import MySQLError
 from openai import (APITimeoutError, APIConnectionError, APIStatusError,)
 from fastapi.responses import HTMLResponse
@@ -35,7 +36,7 @@ def retrieve_for_question(question):
     if retriever_type == "tfidf":
         return retrieve_material(question)
 
-    if retriever_type != "dense":
+    if retriever_type not in ("dense", "rrf"):
         raise HTTPException(
             status_code=500,
             detail="检索方式配置错误",
@@ -47,6 +48,36 @@ def retrieve_for_question(question):
         return {
             "question": question,
             "results": [],
+        }
+
+    if retriever_type == "rrf":
+        try:
+            rrf_k = int(os.getenv("RAG_RRF_K", "60"))
+            tfidf_gate = float(os.getenv("RAG_RRF_TFIDF_GATE", "0.1"))
+        except ValueError as error:
+            raise HTTPException(
+                status_code=500,
+                detail="RRF 参数必须是数字",
+            ) from error
+
+        if rrf_k < 0 or not 0.0 <= tfidf_gate <= 1.0:
+            raise HTTPException(
+                status_code=500,
+                detail="RRF 参数超出范围",
+            )
+
+        from hybrid_retrieval import retrieve_rrf
+
+        results = retrieve_rrf(
+            question,
+            chunks,
+            k=rrf_k,
+            tfidf_gate=tfidf_gate,
+        )
+
+        return {
+            "question": question,
+            "results": results,
         }
 
     try:
@@ -120,13 +151,28 @@ def ask_post(data:AskRequest):
             "retrieved_chunks":[],
         }
 
+    evidence_gate_enabled = os.getenv(
+        "RAG_EVIDENCE_GATE", "false",
+    ).strip().lower() in ("1", "true", "yes")
+
+    if evidence_gate_enabled:
+        sufficient, _ = check_evidence(question, matches, model)
+        if not sufficient:
+            return {
+                "history_id": None,
+                "question": question,
+                "answer": INSUFFICIENT_ANSWER,
+                "source": "course.txt",
+                "retrieved_chunks": [],
+            }
+
     parts = []
     for chunk in matches:
-            parts.append(
-        f"【资料片段 {chunk['id']} 开始】\n"
-        f"{chunk['text']}\n"
-        f"【资料片段 {chunk['id']} 结束】"
-    )
+        parts.append(
+            f"【资料片段 {chunk['id']} 开始】\n"
+            f"{chunk['text']}\n"
+            f"【资料片段 {chunk['id']} 结束】"
+        )
 
     context = "\n".join(parts)
 
