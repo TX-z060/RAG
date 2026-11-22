@@ -12,14 +12,14 @@ f65b622 引入三项改进，并有真实 E2E 三组对照数据支撑：
 
 ## 版本对照
 
-| 项 | 当前线上 | 目标版本 |
-|---|---|---|
-| 代码版本 | 9b86403 | f65b622 |
+| 项    | 当前线上                                       | 目标版本                                       |
+| ---- | ------------------------------------------ | ------------------------------------------ |
+| 代码版本 | 9b86403                                    | f65b622                                    |
 | 发布目录 | /home/zz/releases/course-assistant/9b86403 | /home/zz/releases/course-assistant/f65b622 |
-| 检索方式 | dense @0.88 | rrf（E5 + TF-IDF 排名融合） |
-| 证据门禁 | 无 | 开启（RAG_EVIDENCE_GATE=true） |
-| 流式输出 | 无 | /ask/stream（SSE） |
-| 测试 | 28 passed | 49 passed |
+| 检索方式 | dense @0.88                                | rrf（E5 + TF-IDF 排名融合）                      |
+| 证据门禁 | 无                                          | 开启（RAG_EVIDENCE_GATE=true）                 |
+| 流式输出 | 无                                          | /ask/stream（SSE）                           |
+| 测试   | 28 passed                                  | 49 passed                                  |
 
 ## 已验证环境（延续旧版）
 
@@ -35,7 +35,18 @@ RRF 依赖 E5 稠密检索，因此新版仍需完整安装 dense 依赖和 E5 �
 
 ## 步骤一：准备新发布目录
 
-从 GitHub 拉取目标版本到新目录（服务器需能访问 GitHub）：
+**先确认仓库可见性。** 若仓库为 Private，HTTPS clone 会要求认证，而 GitHub 已不支持账号密码做 Git 操作，会报：
+
+```
+remote: Invalid username or token. Password authentication is not supported for Git operations.
+致命错误：'https://github.com/TX-z060/RAG.git' 鉴权失败
+```
+
+**推荐解法：把仓库设为 Public**（前提是已确认无密钥和敏感数据）。这样 clone 完全免认证，面试官也能直接看到项目。操作路径：
+
+GitHub 仓库页面 → Settings → 拉到最底部 Danger Zone → Change repository visibility → Make public → 输入仓库名确认。
+
+公开后直接拉取：
 
 ```bash
 cd /home/zz/releases/course-assistant
@@ -44,7 +55,16 @@ cd f65b622
 git checkout f65b622
 ```
 
-若服务器无法访问 GitHub，可在本地打包后上传：
+**若必须保持 Private**，用 Personal Access Token 代替密码（不能填账号密码）：
+
+1. GitHub 头像 → Settings → Developer settings → Personal access tokens → Tokens (classic)
+2. Generate new token (classic)，勾选 `repo` 权限，设置过期时间
+3. 复制生成的 token（只显示一次）
+4. 服务器 clone 时 Username 填 GitHub 用户名，Password 处粘贴 token（终端不回显是正常的）
+
+也可配置 SSH key 后改用 `git clone git@github.com:TX-z060/RAG.git f65b622`。
+
+若服务器无法访问 GitHub，可在本地打包后上传（完全绕过认证）：
 
 ```bash
 # 本地（Windows PowerShell，在项目根目录）
@@ -187,7 +207,7 @@ Nginx 无需改动：流式响应的 X-Accel-Buffering: no 请求头已在代码
 
 ## 上线后验收
 
-- 通过 Nginx 访问 http://192.168.65.132/chat，上传资料并提问
+- 通过 Nginx 访问 <http://192.168.65.132/chat，上传资料并提问>
 - 观察引用片段是否先于回答出现（流式生效）
 - 问一道资料中不存在的问题，确认返回"资料中未找到相关信息"而非编造回答（门禁生效）
 - 用本地 e2e_verify.py 的 10 道 holdout 题（8 有答案 + 2 无答案）复跑，确认长文档召回与拒答表现
