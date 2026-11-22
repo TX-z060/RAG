@@ -55,6 +55,10 @@ cd f65b622
 git checkout f65b622
 ```
 
+checkout 具体 commit 会提示"分离头指针状态"，这是正常的——部署固定到某个 commit 便于复现，不影响运行。若想消除该提示，可执行 `git switch -c deploy-f65b622` 建立分支。
+
+注意：main 分支还包含后续的文档提交（如本部署文档），代码与 f65b622 完全相同。当前目录若看不到 RRF-UPDATE-DEPLOYMENT.md，属正常现象，看 GitHub 网页版即可。
+
 **若必须保持 Private**，用 Personal Access Token 代替密码（不能填账号密码）：
 
 1. GitHub 头像 → Settings → Developer settings → Personal access tokens → Tokens (classic)
